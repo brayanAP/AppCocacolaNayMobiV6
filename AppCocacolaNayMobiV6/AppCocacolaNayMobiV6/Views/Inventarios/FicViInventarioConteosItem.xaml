@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+             x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventarioConteosItem">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Regresar"
+            Command="{Binding FicMetRegesarConteoListICommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+
+                <StackLayout Padding="10" BackgroundColor="LightGray">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Id Inventario: " FontAttributes="Bold" FontSize="Micro"/>
+                        <Label Text="{Binding FicLabelInventario}" FontSize="Micro"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="IdCEDI: " FontAttributes="Bold" FontSize="Micro"/>
+                        <Label Text="{Binding FicLabelCEDI}" FontSize="Micro"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Fecha: " FontAttributes="Bold" FontSize="Micro"/>
+                        <Label Text="{Binding FicLabelFecha}" FontSize="Micro"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <Label Text="Codigo de barras" />
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAutoCompleteCodigoBarra"  DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}" HorizontalOptions="Start"/>
+                <Button Text="Escanear" x:Name="btnBarras" HorizontalOptions="End"/>
+
+                <Label Text="SKU"/>
+                <syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" />
+
+                <Label Text="DES. SKU:"/>
+                <Entry Text="{Binding DesSKU}" IsEnabled="False"/>
+
+                <Label Text="Cantidad fisica" />
+                <numeric:SfNumericUpDown MaximumDecimalDigits="0" Minimum="1" Value="{Binding CantidadFisica}"/>
+
+                <Label Text="Unidad medida"/>
+                <syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}"/>
+
+
+                <Label Text="Ubicacion" />
+                <Entry Text="{Binding IdUbicacion}"/>
+
+                <Label Text="Almacen" />
+                <syncfusion:SfAutoComplete HeightRequest="40" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}"/>
+
+
+                <Label Text="Lote" />
+                <Entry Text="{Binding Lote}"/>
+
+                <StackLayout Orientation="Horizontal" Padding="10">
+                    <Button Text="Guardar" Command="{Binding SaveCommand}"/>
+                    <Button Text="Cancelar" Command="{Binding CancelCommand}"/>
+                </StackLayout>
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

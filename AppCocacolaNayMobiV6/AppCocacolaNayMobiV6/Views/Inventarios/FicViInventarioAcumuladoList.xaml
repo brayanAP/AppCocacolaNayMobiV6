@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventarioAcumuladoList">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Lista de Conteos"
+            Command="{Binding FicMetRegresarInventariosICommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+
+            <SearchBar
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Filtrar informacion..."
+                        PlaceholderColor="Red"
+                        x:Name="FicSearchBar"/>
+
+            <syncfusion:SfDataGrid
+                        VerticalOptions="FillAndExpand"
+                        ColumnSizer="Star"
+                        AutoGenerateColumns="False"
+                        AllowSorting="False"
+                        ItemsSource= "{Binding FicSfDataGrid_ItemSource_Acomulado}"
+                        SelectedItem="{Binding FicSfDataGrid_SelectItem_Acomulado}"
+                        SelectionMode="Single"
+                    >
+                <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Id Inventario" MappingName="IdInventario" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="SKU" MappingName="IdSKU" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cantidad Teorica" MappingName="CantidadTeorica" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cantidad Fisica" MappingName="CantidadFisica" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Diferencia" MappingName="Diferencia" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

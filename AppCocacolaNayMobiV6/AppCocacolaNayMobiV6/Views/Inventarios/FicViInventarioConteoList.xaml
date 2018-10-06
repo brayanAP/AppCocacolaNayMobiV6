@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventarioConteoList">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Regresar"
+            Command="{Binding FicMetRegesarInventarioICommand}">
+        </ToolbarItem>
+        <ToolbarItem 
+            Name="Nuevo"
+            Command="{Binding FicMetAddInventarioConteoICommand}">
+        </ToolbarItem>
+        <ToolbarItem 
+            Name="Editar"
+            Command="{Binding FicMetEditInventarioConteoICommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout Padding="10" BackgroundColor="LightGray">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Id Inventario: " FontAttributes="Bold" FontSize="Micro"/>
+                    <Label Text="{Binding FicLabelIdInventario}" FontSize="Micro" x:Name="NameFicLabelIdInventario"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="IdCEDI: " FontAttributes="Bold" FontSize="Micro"/>
+                    <Label Text="{Binding FicLabelIdCEDI}" FontSize="Micro" x:Name="NameFicLabelIdCED"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Fecha: " FontAttributes="Bold" FontSize="Micro"/>
+                    <Label Text="{Binding FicLabelFechaReg}" FontSize="Micro" x:Name="NameFicLabelFechaReg"/>
+                </StackLayout>
+            </StackLayout>
+
+            <SearchBar
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Filtrar informacion..."
+                        PlaceholderColor="Red"
+                        x:Name="FicSearchBar"/>
+
+            <syncfusion:SfDataGrid
+                        VerticalOptions="FillAndExpand"
+                        ColumnSizer="Star"
+                        AutoGenerateColumns="False"
+                        AllowSorting="False"
+                        ItemsSource= "{Binding FicSfDataGrid_ItemSource_Conteo}"
+                        SelectedItem="{Binding FicSfDataGrid_SelectItem_Conteo}"
+                        SelectionMode="Single"
+                        x:Name="FicSfDataGridConteos"
+                    >
+                <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ID" MappingName="IdInventario" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Num. Conteo" MappingName="NumConteo" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Almacen" MappingName="IdAlmacen" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="SKU" MappingName="IdSKU" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cant. Fisica" MappingName="CantidadFisica" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cant. PZA" MappingName="CantidadPZA" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Unidad Medida" MappingName="IdUnidadMedida" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Usuario" MappingName="UsuarioReg" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

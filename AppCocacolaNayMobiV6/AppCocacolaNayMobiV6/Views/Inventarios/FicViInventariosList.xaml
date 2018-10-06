@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventariosList">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Lista de Conteos"
+            Command="{Binding FicMetAddConteoICommand}">
+        </ToolbarItem>
+        <ToolbarItem 
+            Name="Lista de Acomulados"
+            Command="{Binding FicMetAcumuladosICommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+
+            <SearchBar
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Filtrar informacion..."
+                        PlaceholderColor="Red"
+                        x:Name="FicSearchBar"/>
+
+            <syncfusion:SfDataGrid
+                        VerticalOptions="FillAndExpand"
+                        ColumnSizer="Star"
+                        AutoGenerateColumns="False"
+                        AllowSorting="False"
+                        ItemsSource= "{Binding FicSfDataGrid_ItemSource_Inventario}"
+                        SelectedItem="{Binding FicSfDataGrid_SelectItem_Inventario}"
+                        SelectionMode="Single">
+                <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ID" MappingName="IdInventario" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="CEDI" MappingName="IdCEDI" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Fecha" MappingName="FechaReg" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Usuario" MappingName="UsuarioReg" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
