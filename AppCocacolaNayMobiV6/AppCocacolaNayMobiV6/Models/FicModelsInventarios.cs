@@ -193,4 +193,13 @@ namespace AppCocacolaNayMobiV6.Models
         public string UsuarioReg { get; set; }
     }//ESTE MODELO SIRVE DE MANERA TEMPORAL
 
+    public class zt_catalogos_productos_medidas_cedi_almacenes
+    {
+        public List<zt_cat_productos> zt_cat_productos { get; set; }
+        public List<zt_cat_unidad_medidas> zt_cat_unidad_medidas { get; set; }
+        public List<zt_cat_productos_medidas> zt_cat_productos_medidas { get; set; }
+        public List<zt_cat_cedis> zt_cat_cedis { get; set; }
+        public List<zt_cat_almacenes> zt_cat_almacenes { get; set; }
+    }
+
 }//NAMESPACE

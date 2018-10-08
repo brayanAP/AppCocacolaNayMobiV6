@@ -4,15 +4,16 @@
              x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViImportarWebApi">
 
     <ContentPage.Content>
-        <StackLayout Padding="10" Orientation="Horizontal">
-            <StackLayout Padding="10">
-                <Label Text="{Binding FicTextAreaImpInv}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
-                <Button Text="IMP. CATALOGO INV." VerticalOptions="EndAndExpand" Command="{Binding FicMecImportInv}"></Button>
+        <ScrollView >
+            <StackLayout Padding="10" Orientation="Vertical">
+                <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="LightGray">
+                    <Label Text="{Binding FicTextAreaImpInv}" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="Center">
+                    <Button Text="IMP. CATALOGO INV."  Command="{Binding FicMecImportInv}"></Button>
+                    <Button Text="IMP. CATALOGOS GEN." Command="{Binding FicMecImportCat}"></Button>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Padding="10">
-                <Label Text="{Binding FicTextAreaImpGen}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
-                <Button Text="IMP. CATALOGOS GEN." VerticalOptions="EndAndExpand"></Button>
-            </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

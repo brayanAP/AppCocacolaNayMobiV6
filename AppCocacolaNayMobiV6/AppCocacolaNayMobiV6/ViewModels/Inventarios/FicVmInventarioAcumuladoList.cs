@@ -35,8 +35,14 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
                 var FicSourceZt_Inventarios = FicNavigationContext as zt_inventarios;
 
                 _FicSfDataGrid_ItemSource_Acomulado = new ObservableCollection<zt_inventarios_acumulados>();
-                var t = await IFicSrvInventarioAcumuladoList.FicMetGetAcumuladosList(FicSourceZt_Inventarios.IdInventario);
-                await new Page().DisplayAlert("ERROR", t[0].IdSKU, "OK");
+
+                foreach(zt_inventarios_acumulados au in await IFicSrvInventarioAcumuladoList.FicMetGetAcumuladosList(FicSourceZt_Inventarios.IdInventario))
+                {
+                    _FicSfDataGrid_ItemSource_Acomulado.Add(au);
+                }
+
+                RaisePropertyChanged("FicSfDataGrid_ItemSource_Acomulado");
+
             }
             catch(Exception e)
             {

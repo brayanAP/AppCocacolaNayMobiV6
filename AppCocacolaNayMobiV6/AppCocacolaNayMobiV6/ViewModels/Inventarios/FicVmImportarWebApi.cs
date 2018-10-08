@@ -14,7 +14,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
     public class FicVmImportarWebApi : INotifyPropertyChanged
     {
         private string _FicTextAreaImpInv;
-        private ICommand _FicMecImportInv;
+        private ICommand _FicMecImportInv, _FicMecImportCat;
 
         private IFicSrvNavigationInventario IFicSrvNavigationInventario;
         private IFicSrvImportarWebApi IFicSrvImportarWebApi;
@@ -47,6 +47,29 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             try
             {
                 _FicTextAreaImpInv = await IFicSrvImportarWebApi.FicGetImportInventarios();
+                RaisePropertyChanged("FicTextAreaImpInv");
+                await new Page().DisplayAlert("ALERTA", "Datos Actualizados.", "OK");
+            }
+            catch (Exception e)
+            {
+                await new Page().DisplayAlert("ALERTA", e.Message.ToString(), "OK");
+            }
+        }
+
+        public ICommand FicMecImportCat
+        {
+            get
+            {
+                return _FicMecImportCat = _FicMecImportCat ??
+                      new FicVmDelegateCommand(FicMecImportCatalogo);
+            }
+        }//ESTE VENTO AGREGA EL COMANDO AL BOTON EN LA VIEW
+
+        private async void FicMecImportCatalogo()
+        {
+            try
+            {
+                _FicTextAreaImpInv = await IFicSrvImportarWebApi.FicGetImportCatalogos();
                 RaisePropertyChanged("FicTextAreaImpInv");
                 await new Page().DisplayAlert("ALERTA", "Datos Actualizados.", "OK");
             }

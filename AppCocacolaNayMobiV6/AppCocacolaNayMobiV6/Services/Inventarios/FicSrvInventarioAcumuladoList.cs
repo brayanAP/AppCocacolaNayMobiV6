@@ -35,9 +35,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                     foreach (zt_inventarios_conteos c in FicSourceProductos.ToList())
                     {
                         var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c.IdSKU select t).ToList();
-
-                        
-
                         if (FicSourceSuma != null)
                         {
                             var FicSuma = FicSourceSuma.GroupBy(x => x.IdSKU).Select(conteo => new
@@ -45,8 +42,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 SumaPZA = conteo.Sum(l => l.CantidadPZA)
                             });
 
-
-                            var FicSourceAcumulados = await (from t in FicLoBDContext.zt_inventarios_acumulados where t.IdSKU == c.IdSKU select t).SingleOrDefaultAsync();
+                            var FicSourceAcumulados = await (from t in FicLoBDContext.zt_inventarios_acumulados where t.IdSKU == c.IdSKU && t.IdInventario == _idinventario select t).SingleOrDefaultAsync();
 
                             if (FicSourceAcumulados == null)
                             {
@@ -67,22 +63,10 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             }
                             else
                             {
-                                await new Page().DisplayAlert("ERROR", "UPDATE", "OK");
-                                FicLoBDContext.Update(new zt_inventarios_acumulados()
-                                {
-                                    IdInventario = _idinventario,
-                                    IdSKU = c.IdSKU,
-                                    CantidadFisica = FicSuma.First().SumaPZA,
-                                    CantidadTeorica = 0,
-                                    Diferencia = FicSuma.First().SumaPZA,
-                                    IdUnidadMedida = 4,
-                                    FechaReg = DateTime.Now,
-                                    UsuarioReg = "BUAP",
-                                    FechaUltMod = DateTime.Now,
-                                    UsuarioMod = "BUAP",
-                                    Activo = "S",
-                                    Borrado = "N"
-                                });
+                                FicSourceAcumulados.CantidadFisica = FicSuma.First().SumaPZA;
+                                FicSourceAcumulados.FechaUltMod = DateTime.Now;
+                                FicSourceAcumulados.UsuarioMod = "BUAP";
+                                FicLoBDContext.Update(FicSourceAcumulados);
                                 await FicLoBDContext.SaveChangesAsync();
                             }//INSERT o UPDATE DEL ACUMULADO
                         }//TRAER LA SUMA DE PIEZAS DEL CONTEO DE ESE PRODUCTO

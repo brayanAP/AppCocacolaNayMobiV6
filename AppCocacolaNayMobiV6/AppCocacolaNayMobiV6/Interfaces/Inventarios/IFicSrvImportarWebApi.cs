@@ -8,5 +8,6 @@ namespace AppCocacolaNayMobiV6.Interfaces.Inventarios
     public interface IFicSrvImportarWebApi
     {
         Task<string> FicGetImportInventarios();
+        Task<string> FicGetImportCatalogos();
     }//INTERFACE
 }//NAMESPACE
