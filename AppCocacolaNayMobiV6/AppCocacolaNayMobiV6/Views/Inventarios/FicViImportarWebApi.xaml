@@ -2,20 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViImportarWebApi">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Name="Lista de Inventarios"
-            Command="{Binding FicMetRegresarInventariosICommand}">
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <StackLayout>
-                <Label Text="{Binding FicTextAreaImpInv}" />
-                <Button Text="IMP. CATALOGO INV."></Button>
+        <StackLayout Padding="10" Orientation="Horizontal">
+            <StackLayout Padding="10">
+                <Label Text="{Binding FicTextAreaImpInv}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+                <Button Text="IMP. CATALOGO INV." VerticalOptions="EndAndExpand" Command="{Binding FicMecImportInv}"></Button>
             </StackLayout>
-            
+            <StackLayout Padding="10">
+                <Label Text="{Binding FicTextAreaImpGen}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+                <Button Text="IMP. CATALOGOS GEN." VerticalOptions="EndAndExpand"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

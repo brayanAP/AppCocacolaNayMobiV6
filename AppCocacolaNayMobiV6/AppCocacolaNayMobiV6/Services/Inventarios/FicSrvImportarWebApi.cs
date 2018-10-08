@@ -37,7 +37,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    await new Page().DisplayAlert("ALERTA", content.ToString(), "OK");
                     return JsonConvert.DeserializeObject<zt_inventatios_acumulados_conteos>(content);
                 }
                 else

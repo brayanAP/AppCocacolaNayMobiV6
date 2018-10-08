@@ -1,10 +1,12 @@
 ﻿using AppCocacolaNayMobiV6.Interfaces.Inventarios;
 using AppCocacolaNayMobiV6.Interfaces.Navegacion;
+using AppCocacolaNayMobiV6.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
@@ -12,6 +14,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
     public class FicVmImportarWebApi : INotifyPropertyChanged
     {
         private string _FicTextAreaImpInv;
+        private ICommand _FicMecImportInv;
 
         private IFicSrvNavigationInventario IFicSrvNavigationInventario;
         private IFicSrvImportarWebApi IFicSrvImportarWebApi;
@@ -27,11 +30,31 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         }
         public async void OnAppearing()
         {
-            //var s = await IFicSrvImportarWebApi.FicGetImportInventarios();
-            _FicTextAreaImpInv = await IFicSrvImportarWebApi.FicGetImportInventarios();
-            RaisePropertyChanged("FicTextAreaImpInv");
 
         }//METODO QUE SE MANDA A LLAMAR EN LA VIEW
+
+        public ICommand FicMecImportInv
+        {
+            get
+            {
+                return _FicMecImportInv = _FicMecImportInv ??
+                      new FicVmDelegateCommand(FicMecImportInventario);
+            }
+        }//ESTE VENTO AGREGA EL COMANDO AL BOTON EN LA VIEW
+
+        private async void FicMecImportInventario()
+        {
+            try
+            {
+                _FicTextAreaImpInv = await IFicSrvImportarWebApi.FicGetImportInventarios();
+                RaisePropertyChanged("FicTextAreaImpInv");
+                await new Page().DisplayAlert("ALERTA", "Datos Actualizados.", "OK");
+            }
+            catch (Exception e)
+            {
+                await new Page().DisplayAlert("ALERTA", e.Message.ToString(), "OK");
+            }
+        }
 
         #region  INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
