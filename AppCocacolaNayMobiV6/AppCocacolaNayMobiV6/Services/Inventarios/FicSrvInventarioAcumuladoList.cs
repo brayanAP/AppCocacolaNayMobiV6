@@ -28,10 +28,11 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             /*TRAEGO CADA UNO DE LOS PRODUCTOS, PERO SIN REPETIRCE*/
             var FicSourceProductos = FicSourceConteos.Distinct();
 
-            if(FicSourceConteos != null)
+            if (FicSourceConteos != null)
             {
                 if(FicSourceProductos != null)
                 {
+
                     foreach (zt_inventarios_conteos c in FicSourceProductos.ToList())
                     {
                         var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c.IdSKU select t).ToList();
@@ -50,10 +51,10 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 {
                                     IdInventario = _idinventario,
                                     IdSKU = c.IdSKU,
-                                    CantidadTeorica = 0,
+                                    CantidadTeorica = FicSuma.First().SumaPZA,
                                     CantidadFisica = FicSuma.First().SumaPZA,
                                     Diferencia = FicSuma.First().SumaPZA,
-                                    IdUnidadMedida = 4,
+                                    IdUnidadMedida = 4001,
                                     FechaReg = DateTime.Now.Date,
                                     UsuarioReg = "BUAP",
                                     Activo = "S",
