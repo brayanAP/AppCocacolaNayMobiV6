@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViImportarWebApi">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Lista de Inventarios"
+            Command="{Binding FicMetRegresarInventariosICommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout>
+                <Label Text="{Binding FicTextAreaImpInv}" />
+                <Button Text="IMP. CATALOGO INV."></Button>
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

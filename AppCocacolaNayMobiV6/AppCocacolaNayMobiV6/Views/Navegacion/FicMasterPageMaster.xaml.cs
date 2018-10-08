@@ -38,6 +38,11 @@ namespace AppCocacolaNayMobiV6.Views.Navegacion
                                                 Icon ="ficAlmacen20x20.png",
                                                 FicPageName ="FicViInventariosList",
                                                 TargetType = typeof(FicViInventariosList)
+                                                },
+                    new FicMasterPageMenuItem { Id = 0, Title = "Importacion Web Api",
+                                                Icon ="ficAlmacen20x20.png",
+                                                FicPageName ="FicViImportarWebApi",
+                                                TargetType = typeof(FicViImportarWebApi)
                                                 }
 
                 });

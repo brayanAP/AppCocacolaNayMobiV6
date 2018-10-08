@@ -33,6 +33,9 @@ namespace AppCocacolaNayMobiV6.Views.Navegacion
                     case "FicViInventariosList":
                         FicItemMenu.TargetType = typeof(FicViInventariosList);
                         break;
+                    case "FicViImportarWebApi":
+                        FicItemMenu.TargetType = typeof(FicViImportarWebApi);
+                    break;
                     default:
                         break;
                 }

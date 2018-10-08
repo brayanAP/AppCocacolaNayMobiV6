@@ -177,7 +177,7 @@ namespace AppCocacolaNayMobiV6.Models
     public class zt_inventatios_acumulados_conteos
     {
         public List<zt_inventarios> zt_inventarios { get; set; }
-        //public List<zt_inventarios_acumulados> zt_inventarios_acumulados { get; set; }
+        public List<zt_inventarios_acumulados> zt_inventarios_acumulados { get; set; }
         public List<zt_inventarios_conteos> zt_inventarios_conteos { get; set; }
     }
 

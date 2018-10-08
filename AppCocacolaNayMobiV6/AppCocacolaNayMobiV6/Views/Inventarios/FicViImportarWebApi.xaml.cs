@@ -11,25 +11,22 @@ using Xamarin.Forms.Xaml;
 namespace AppCocacolaNayMobiV6.Views.Inventarios
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FicViInventarioAcumuladoList : ContentPage
+	public partial class FicViImportarWebApi : ContentPage
 	{
-        private object FicNavigationContext { get; set; }
-
-        public FicViInventarioAcumuladoList(object FicNavigationContext)
-        {
-            InitializeComponent();
-            this.FicNavigationContext = FicNavigationContext;
-            BindingContext = App.FicVmLocator.FicVmInventarioAcumuladoList;
+		public FicViImportarWebApi ()
+		{
+			InitializeComponent ();
+            BindingContext = App.FicVmLocator.FicVmImportarWebApi;
         }//CONSTRUCTOR
 
         protected async override void OnAppearing()
         {
-            var FicViewModel = BindingContext as FicVmInventarioAcumuladoList;
+            var FicViewModel = BindingContext as FicVmImportarWebApi;
             if (FicViewModel != null)
             {
-                FicViewModel.FicNavigationContext = FicNavigationContext;
                 FicViewModel.OnAppearing();
             }
+
         }//SE EJECUTA CUANDO SE ABRE LA VIEW
 
     }//CLASS

@@ -26,6 +26,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Base
             FicContainerBuilder.RegisterType<FicVmInventarioConteoList>();
             FicContainerBuilder.RegisterType<FicVmInventarioConteosItem>();
             FicContainerBuilder.RegisterType<FicVmInventarioAcumuladoList>();
+            FicContainerBuilder.RegisterType<FicVmImportarWebApi>();
             //------------------------- INTERFACE SERVICES OF THE VIEW MODELS -----------------------------------
             //FIC: se procede a registrar la interface con la que se comunican las ViewModels con los Servicios 
             //para poder ejecutar las tareas (metodos o funciones, etc) del servicio en cuestion.
@@ -34,6 +35,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Base
             FicContainerBuilder.RegisterType<FicSrvInventariosList>().As<IFicSrvInventariosList>().SingleInstance();
             FicContainerBuilder.RegisterType<FicSrvInventariosConteosItem>().As<IFicSrvInventariosConteosItem>().SingleInstance();
             FicContainerBuilder.RegisterType<FicSrvInventariosConteoList>().As<IFicSrvInventariosConteoList>().SingleInstance();
+            FicContainerBuilder.RegisterType<FicSrvInventarioAcumuladoList>().As<IFicSrvInventarioAcumuladoList>().SingleInstance();
+            FicContainerBuilder.RegisterType<FicSrvImportarWebApi>().As<IFicSrvImportarWebApi>().SingleInstance();
 
             //FIC: se asigna o se libera el contenedor
             //-------------------------------------------
@@ -61,10 +64,15 @@ namespace AppCocacolaNayMobiV6.ViewModels.Base
         {
             get { return FicIContainer.Resolve<FicVmInventarioConteosItem>(); }
         }
-
+        
         public FicVmInventarioAcumuladoList FicVmInventarioAcumuladoList
         {
             get { return FicIContainer.Resolve<FicVmInventarioAcumuladoList>(); }
+        }
+
+        public FicVmImportarWebApi FicVmImportarWebApi
+        {
+            get { return FicIContainer.Resolve<FicVmImportarWebApi>(); }
         }
 
     }//CLASS

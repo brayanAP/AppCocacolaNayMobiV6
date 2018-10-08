@@ -16,7 +16,8 @@ namespace AppCocacolaNayMobiV6.Services.Navegacion
             { typeof(FicVmInventariosList),typeof(FicViInventariosList) },
             { typeof(FicVmInventarioConteoList),typeof(FicViInventarioConteoList) },
             { typeof(FicVmInventarioConteosItem),typeof(FicViInventarioConteosItem) },
-            { typeof(FicVmInventarioAcumuladoList),typeof(FicViInventarioAcumuladoList)}
+            { typeof(FicVmInventarioAcumuladoList),typeof(FicViInventarioAcumuladoList)},
+            {typeof(FicVmImportarWebApi), typeof(FicViImportarWebApi)}
         };
 
         #region METODOS DE IMPLEMENTACION DE LA INTERFACE -> IFicSrvNavigationInventario
