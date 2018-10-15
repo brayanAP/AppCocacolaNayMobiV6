@@ -35,7 +35,10 @@ namespace AppCocacolaNayMobiV6.Views.Navegacion
                         break;
                     case "FicViImportarWebApi":
                         FicItemMenu.TargetType = typeof(FicViImportarWebApi);
-                    break;
+                        break;
+                    case "FicViExportarWebApi":
+                        FicItemMenu.TargetType = typeof(FicViExportarWebApi);
+                        break;
                     default:
                         break;
                 }

@@ -1,8 +1,6 @@
 ﻿using AppCocacolaNayMobiV6.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace AppCocacolaNayMobiV6.Data

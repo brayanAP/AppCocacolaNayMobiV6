@@ -36,6 +36,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                     foreach (zt_inventarios_conteos c in FicSourceProductos.ToList())
                     {
                         var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c.IdSKU select t).ToList();
+
                         if (FicSourceSuma != null)
                         {
                             var FicSuma = FicSourceSuma.GroupBy(x => x.IdSKU).Select(conteo => new
@@ -54,7 +55,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                     CantidadTeorica = FicSuma.First().SumaPZA,
                                     CantidadFisica = FicSuma.First().SumaPZA,
                                     Diferencia = FicSuma.First().SumaPZA,
-                                    IdUnidadMedida = 4001,
+                                    IdUnidadMedida = "PZA",
                                     FechaReg = DateTime.Now.Date,
                                     UsuarioReg = "BUAP",
                                     Activo = "S",

@@ -34,12 +34,32 @@
                 </StackLayout>
 
                 <Label Text="Codigo de barras" />
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAutoCompleteCodigoBarra"  DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}" HorizontalOptions="Start"/>
+                <!--<syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAutoCompleteCodigoBarra"  DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}" HorizontalOptions="Start"/>-->
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicCodigoBarras" DisplayMemberPath="CodigoBarras" DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}">
+                    <syncfusion:SfAutoComplete.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="{Binding CodigoBarras}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfAutoComplete.ItemTemplate>
+                </syncfusion:SfAutoComplete>
                 <Button Text="Escanear" x:Name="btnBarras" HorizontalOptions="End"/>
 
                 <Label Text="SKU"/>
-                <syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" />
+                <!--<syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" />-->
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicSku" DisplayMemberPath="IdSKU" DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}">
+                    <syncfusion:SfAutoComplete.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
 
+                                <Label Text="{Binding IdSKU}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfAutoComplete.ItemTemplate>
+                </syncfusion:SfAutoComplete>
+                
                 <Label Text="DES. SKU:"/>
                 <Entry Text="{Binding DesSKU}" IsEnabled="False"/>
 
@@ -47,22 +67,39 @@
                 <numeric:SfNumericUpDown MaximumDecimalDigits="0" Minimum="1" Value="{Binding CantidadFisica}"/>
 
                 <Label Text="Unidad medida"/>
-                <syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}"/>
+                <!--<syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}"/>-->
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicUnm" DisplayMemberPath="DesUMedida" DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}">
+                    <syncfusion:SfAutoComplete.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
 
+                                <Label Text="{Binding DesUMedida}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfAutoComplete.ItemTemplate>
+                </syncfusion:SfAutoComplete>
 
                 <Label Text="Ubicacion" />
-                <Entry Text="{Binding IdUbicacion}"/>
+                <Entry Text="{Binding IdUbicacion}" x:Name="FicUb"/>
 
                 <Label Text="Almacen" />
-                <syncfusion:SfAutoComplete HeightRequest="40" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}"/>
+                <!--<syncfusion:SfAutoComplete HeightRequest="40" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}"/>-->
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAlm" DisplayMemberPath="DesAlmacen" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}">
+                    <syncfusion:SfAutoComplete.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
 
+                                <Label Text="{Binding DesAlmacen}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfAutoComplete.ItemTemplate>
+                </syncfusion:SfAutoComplete>
 
                 <Label Text="Lote" />
                 <Entry Text="{Binding Lote}"/>
 
                 <StackLayout Orientation="Horizontal" Padding="10">
                     <Button Text="Guardar" Command="{Binding SaveCommand}"/>
-                    <Button Text="Cancelar" Command="{Binding CancelCommand}"/>
                 </StackLayout>
 
 

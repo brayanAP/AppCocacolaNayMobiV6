@@ -33,15 +33,18 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
             {
                 FicViewModel.FicNavigationContextC = FicCuerpoNavigationContext;
 
-                FicViewModel.FicModo = false;
-
-                if (FicCuerpoNavigationContext[1] != null)
-                {
+                if (FicCuerpoNavigationContext[1] != null) {
                     FicViewModel.FicModo = true;
-                }//SI ES NULO ENTONCES VIENE EN MODO INSERT
+                    FicCodigoBarras.IsEnabled = false;
+                    FicSku.IsEnabled = false;
+                    FicUnm.IsEnabled = false;
+                    FicAlm.IsEnabled = false;
+                    FicUb.IsEnabled = false;
+                } 
+                else FicViewModel.FicModo = false;
 
                 FicViewModel.OnAppearing();
-                FicAutoCompleteCodigoBarra.ValueChanged += (object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e) =>
+                FicCodigoBarras.ValueChanged += (object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e) =>
                 {
                     FicViewModel.FicMetLoadInfoTomaCodigoBarra();
                 };

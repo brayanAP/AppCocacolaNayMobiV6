@@ -67,8 +67,9 @@ namespace AppCocacolaNayMobiV6.Models
 
     public class zt_cat_unidad_medidas
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Int16 IdUnidadMedida { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+       // public Int16 IdUnidadMedida { get; set; }
+       public string IdUnidadMedida { get; set; }
         [StringLength(20)]
         public string DesUMedida { get; set; }
         public DateTime FechaReg { get; set; }
@@ -111,7 +112,7 @@ namespace AppCocacolaNayMobiV6.Models
         public float CantidadTeorica { get; set; }
         public float CantidadFisica { get; set; }
         public float Diferencia { get; set; }
-        public Int16 IdUnidadMedida { get; set; }
+        public string IdUnidadMedida { get; set; }
         public zt_cat_unidad_medidas zt_cat_unidad_medidas { get; set; }
         public DateTime FechaReg { get; set; }
         [StringLength(20)]
@@ -140,7 +141,7 @@ namespace AppCocacolaNayMobiV6.Models
         [StringLength(20)]
         public string IdUbicacion { get; set; }
         public float CantidadFisica { get; set; }
-        public Int16 IdUnidadMedida { get; set; }
+        public string IdUnidadMedida { get; set; }
         public zt_cat_unidad_medidas zt_cat_unidad_medidas { get; set; }
         public float CantidadPZA { get; set; }
         [StringLength(30)]
@@ -159,7 +160,7 @@ namespace AppCocacolaNayMobiV6.Models
         [StringLength(20)]
         public string IdSKU { get; set; }
         public zt_cat_productos zt_cat_productos { get; set; }
-        public Int16 IdUnidadMedida { get; set; }
+        public string IdUnidadMedida { get; set; }
         public zt_cat_unidad_medidas zt_cat_unidad_medidas { get; set; }
         public float CantidadPZA { get; set; }
         public DateTime FechaReg { get; set; }
@@ -200,6 +201,13 @@ namespace AppCocacolaNayMobiV6.Models
         public List<zt_cat_productos_medidas> zt_cat_productos_medidas { get; set; }
         public List<zt_cat_cedis> zt_cat_cedis { get; set; }
         public List<zt_cat_almacenes> zt_cat_almacenes { get; set; }
+    }
+
+    public class body_edit_conteo_item
+    {
+        public zt_cat_almacenes zt_cat_almacenes { get; set; }
+        public zt_cat_productos zt_cat_productos { get; set; }
+        public zt_cat_unidad_medidas zt_cat_unidad_medidas { get; set; }
     }
 
 }//NAMESPACE

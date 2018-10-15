@@ -13,9 +13,8 @@ namespace AppCocacolaNayMobiV6.Interfaces.Inventarios
         Task<IList<zt_cat_cedis>> FicMetGetListCedis();
         Task<IList<zt_cat_unidad_medidas>> FicMetGetListCatUnidadMedida();
         Task<IList<zt_cat_productos>> FicMetGetListCatProductos();
-        Task<string> FicMetIdAlmDes(Int16 id);
-        Task<string> FicMetIdUnmDes(Int16 id);
-        Task<string> Insert_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos, string alm, string unm, string zku);
+        Task<string> Insert_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos, bool modo);
         Task<string> Remove_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos);
+        Task<body_edit_conteo_item> FicExitBodyEdit(zt_inventarios_conteos zt_inventarios_conteos);
     }//INTERFACE
 }//NAMESPACE

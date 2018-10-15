@@ -28,5 +28,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                           where inv.IdInventario == IdInventario
                           select conteo).ToListAsync();
         }//LIST ALL
+
     }//CLASS
 }//NAMESPACE

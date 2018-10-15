@@ -35,47 +35,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                           select conteo).SingleOrDefaultAsync() == null ? true : false;
         }//BUSCA SI EXISTE UN REGISTRO
 
-        private async Task<string> FicMetIdSku(string sku)
-        {
-            var temp = await (from conteo in FicLoBDContext.zt_cat_productos
-                              where conteo.IdSKU == sku
-                              select conteo).SingleOrDefaultAsync();
-            return temp.IdSKU;
-        }
-
-        private async Task<Int16> FicMetIdAlm(string alm)
-        {
-            var temp = await (from conteo in FicLoBDContext.zt_cat_almacenes
-                              where conteo.DesAlmacen == alm
-                              select conteo).SingleOrDefaultAsync();
-            return temp.IdAlmacen;
-        }
-
-        public async Task<string> FicMetIdAlmDes(Int16 id)
-        {
-            var temp = await (from conteo in FicLoBDContext.zt_cat_almacenes
-                              where conteo.IdAlmacen == id
-                              select conteo).SingleOrDefaultAsync();
-            return temp.DesAlmacen;
-        }
-
-        private async Task<Int16> FicMetIdUnm(string unm)
-        {
-            var temp = await (from conteo in FicLoBDContext.zt_cat_unidad_medidas
-                              where conteo.DesUMedida == unm
-                              select conteo).SingleOrDefaultAsync();
-            return temp.IdUnidadMedida;
-        }
-
-        public async Task<string> FicMetIdUnmDes(Int16 id)
-        {
-            var temp = await (from conteo in FicLoBDContext.zt_cat_unidad_medidas
-                              where conteo.IdUnidadMedida == id
-                              select conteo).SingleOrDefaultAsync();
-            return temp.DesUMedida;
-        }
-
-        private async Task<float> FicMetCantPza(string IdSku, Int16 IdUnm, float cf)
+        private async Task<float> FicMetCantPza(string IdSku, string IdUnm, float cf)
         {
             var temp = await (from prome in FicLoBDContext.zt_cat_productos_medidas
                               join pro in FicLoBDContext.zt_cat_productos on prome.IdSKU equals pro.IdSKU
@@ -95,59 +55,62 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                              where pro.IdSKU == zt_inventarios_conteos.IdSKU && alm.IdAlmacen == zt_inventarios_conteos.IdAlmacen && unm.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida && conteo.IdUbicacion == zt_inventarios_conteos.IdUbicacion && inv.IdInventario == zt_inventarios_conteos.IdInventario //&& conteo.NumConteo == zt_inventarios_conteos.NumConteo
                              select conteo).ToListAsync();
 
-            if (bus != null)
+            if (bus != null && bus.Count != 0)
             {
-                if (bus.Count != 0)
-                {
-                    List<int> temp = new List<int>();
-                    foreach (zt_inventarios_conteos a in bus)
-                    {
-                        temp.Add(a.NumConteo);
-                    }
-
-                    return temp.Max() + 1;
-                }
-
+                List<int> temp = new List<int>();
+                foreach (zt_inventarios_conteos a in bus) temp.Add(a.NumConteo);
+                return temp.Max() + 1;
             }
+
             return 1;
         }//BUSCA SI EXISTE UN REGISTRO
 
-        public async Task<string> Insert_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos, string alm, string unm, string zku)
+        public async Task<body_edit_conteo_item> FicExitBodyEdit(zt_inventarios_conteos zt_inventarios_conteos)
         {
-            //using (var context = new FicBDContext(DependencyService.Get<IFicConfigSQLiteNETStd>().FicGetDataBasePath()))
-            //{
-            //    using (IDbContextTransaction transaction = context.Database.BeginTransaction())
-            //    {
+
+            return new body_edit_conteo_item()
+            {
+                zt_cat_almacenes = await (from con in FicLoBDContext.zt_cat_almacenes where con.IdAlmacen == zt_inventarios_conteos.IdAlmacen select con).SingleOrDefaultAsync() as zt_cat_almacenes,
+                zt_cat_productos = await (from con in FicLoBDContext.zt_cat_productos where con.IdSKU == zt_inventarios_conteos.IdSKU select con).SingleOrDefaultAsync() as zt_cat_productos,
+                zt_cat_unidad_medidas = await (from con in FicLoBDContext.zt_cat_unidad_medidas where con.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida select con).SingleOrDefaultAsync() as zt_cat_unidad_medidas
+            };
+        }
+
+        public async Task<string> Insert_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos,bool modo)
+        {
             try
             {
-                zt_inventarios_conteos.IdSKU = await FicMetIdSku(zku);
-                zt_inventarios_conteos.IdAlmacen = await FicMetIdAlm(alm);
-                zt_inventarios_conteos.IdUnidadMedida = await FicMetIdUnm(unm);
-                zt_inventarios_conteos.NumConteo = await FicExitConteo(zt_inventarios_conteos);
                 zt_inventarios_conteos.CantidadPZA = await FicMetCantPza(zt_inventarios_conteos.IdSKU, zt_inventarios_conteos.IdUnidadMedida, zt_inventarios_conteos.CantidadFisica);
-                FicLoBDContext.Entry(zt_inventarios_conteos).State = EntityState.Detached;
 
-                //if (await FicExitInventariosConteo(zt_inventarios_conteos))
-                //{
-                //    FicLoBDContext.Update(zt_inventarios_conteos);
-                //    await FicLoBDContext.SaveChangesAsync();
-                //}
-                //else
-                //{
-                await FicLoBDContext.AddAsync(zt_inventarios_conteos);
-                await FicLoBDContext.SaveChangesAsync();
-                //  }//BUSCAR SI YA SE INSERTO UN REGISTRO
+                if (modo)
+                {
+                    zt_inventarios_conteos.NumConteo = await FicExitConteo(zt_inventarios_conteos);
+                    await FicLoBDContext.AddAsync(zt_inventarios_conteos);
+                    return await FicLoBDContext.SaveChangesAsync() > 0 ? "OK" : "ERROR AL REGISTRAR";
+                }
+                else
+                {
+                    var FicSourceInvExits = await (
+                       from con in FicLoBDContext.zt_inventarios_conteos
+                       join inv in FicLoBDContext.zt_inventarios on con.IdInventario equals inv.IdInventario
+                       where con.IdSKU == zt_inventarios_conteos.IdSKU && con.IdAlmacen == zt_inventarios_conteos.IdAlmacen && con.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida && con.NumConteo == zt_inventarios_conteos.NumConteo && con.IdUbicacion == zt_inventarios_conteos.IdUbicacion
+                       select con
+                        ).SingleOrDefaultAsync();
 
-                //transaction.Commit(); //CONFIRMA/GUARDA
-                return "OK";
+                    FicSourceInvExits.Lote = zt_inventarios_conteos.Lote;
+                    FicSourceInvExits.CantidadFisica = zt_inventarios_conteos.CantidadFisica;
+                    FicSourceInvExits.CantidadPZA = zt_inventarios_conteos.CantidadPZA;
+
+                    FicLoBDContext.Update(FicSourceInvExits);
+                    return await FicLoBDContext.SaveChangesAsync() > 0 ? "OK" : "ERROR AL ACTUALIZAR";
+                }
+                
+              
             }
             catch (Exception ex)
             {
-                // transaction.Rollback();
                 return ex.Message.ToString();
             }
-            //    }//ENTRA EN CONTEXTO DE TRANSACIONES
-            //}//ATRAVEZ DEL CONTEXTO DE LA BD
         }//INSERTAR NUEVO CONTEO
 
         public async Task<string> Remove_zt_inventarios_conteos(zt_inventarios_conteos zt_inventarios_conteos)
