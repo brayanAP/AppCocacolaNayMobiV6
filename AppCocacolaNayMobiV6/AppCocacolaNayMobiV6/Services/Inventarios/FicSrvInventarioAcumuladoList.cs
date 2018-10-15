@@ -54,7 +54,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                     IdSKU = c.IdSKU,
                                     CantidadTeorica = FicSuma.First().SumaPZA,
                                     CantidadFisica = FicSuma.First().SumaPZA,
-                                    Diferencia = FicSuma.First().SumaPZA,
+                                    Diferencia = 0,
                                     IdUnidadMedida = "PZA",
                                     FechaReg = DateTime.Now.Date,
                                     UsuarioReg = "BUAP",
