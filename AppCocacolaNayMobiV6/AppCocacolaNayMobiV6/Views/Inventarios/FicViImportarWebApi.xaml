@@ -7,9 +7,9 @@
         <ScrollView >
 
             <StackLayout Padding="10" Orientation="Vertical">
-                <StackLayout Orientation="Horizontal">
-                    <Entry Text="{Binding FicLabelIdInv}" HorizontalOptions="StartAndExpand"/>
-                    <Button Text="IMP. CATALOGO INV."  Command="{Binding FicMecImportIdInv}" HorizontalOptions="end"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Entry Text="{Binding FicLabelIdInv}"/>
+                    <Button Text="IMP. CATALOGO INV."  Command="{Binding FicMecImportIdInv}"/>
                 </StackLayout>
                 <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="LightGray">
                     <Label Text="{Binding FicTextAreaImpInv}" FontAttributes="Bold"/>
