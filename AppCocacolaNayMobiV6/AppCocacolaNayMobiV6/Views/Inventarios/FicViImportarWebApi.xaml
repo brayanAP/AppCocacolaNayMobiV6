@@ -6,8 +6,8 @@
     <ContentPage.Content>
         <ScrollView >
 
-            <StackLayout Padding="10" Orientation="Horizontal">
-                <StackLayout>
+            <StackLayout Padding="10" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
                     <Entry Text="{Binding FicLabelIdInv}"/>
                     <Button Text="IMP. CATALOGO INV."  Command="{Binding FicMecImportIdInv}"></Button>
                 </StackLayout>
