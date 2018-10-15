@@ -26,13 +26,14 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             FiClient.MaxResponseContentBufferSize = 256000;
         }//CONSTRUCTOR
 
-        private async Task<zt_inventatios_acumulados_conteos> FicGetListInventarioActualiza()
+        private async Task<zt_inventatios_acumulados_conteos> FicGetListInventarioActualiza(int id=0)
         {
-            const string url = "http://localhost:60304/api/inventarios/invacocon";
-
             try
             {
-               var response = await FiClient.GetAsync(url);
+                string u="";
+                if (id != 0) u = "?id="+id;
+                string url = "http://localhost:60304/api/inventarios/invacocon"+u;
+                var response = await FiClient.GetAsync(url);
                return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<zt_inventatios_acumulados_conteos>(await response.Content.ReadAsStringAsync()) : null;
             }
             catch (Exception e)
@@ -98,13 +99,17 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             return await (from acu in FicLoBDContext.zt_cat_almacenes where acu.IdAlmacen == id select acu).SingleOrDefaultAsync();
         }
 
-        public async Task<string> FicGetImportInventarios()
+        public async Task<string> FicGetImportInventarios(int id=0)
         {
             string FicMensaje = "";
             try
             {
                 FicMensaje = "IMPORTACION: \n";
-                var FicGetReultREST = await FicGetListInventarioActualiza();
+                var FicGetReultREST = new zt_inventatios_acumulados_conteos();
+
+                if (id!=0) FicGetReultREST = await FicGetListInventarioActualiza(id);
+                else FicGetReultREST = await FicGetListInventarioActualiza();
+
                 if (FicGetReultREST != null && FicGetReultREST.zt_inventarios != null)
                 {
                     FicMensaje += "IMPORTANDO: zt_inventarios \n";
