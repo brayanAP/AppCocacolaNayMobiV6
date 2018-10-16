@@ -141,7 +141,7 @@ namespace AppCocacolaNayMobiV6.Data
                     .HasKey(c => new { c.IdModulo });
 
                 modelBuilder.Entity<seg_cat_submodulos>()
-                    .HasKey(c => new {c.IdSubmodulo, c.IdModulo });
+                    .HasKey(c => new {c.IdSubmodulo});
 
                 modelBuilder.Entity<seg_cat_submodulos>()
                 .HasOne(s => s.seg_cat_modulos).
