@@ -77,7 +77,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                 }//LISTA DE PRODUCTOS
             }//SI EXISTEN CONTEOS
 
-            return await (from acu in FicLoBDContext.zt_inventarios_acumulados select acu).AsNoTracking().ToListAsync();
+            return await (from acu in FicLoBDContext.zt_inventarios_acumulados where acu.IdInventario == _idinventario select acu).AsNoTracking().ToListAsync();
         }
     }//CLASS
 }//NAMESPACE
