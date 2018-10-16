@@ -377,7 +377,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                await FicLoBDContext.SaveChangesAsync();
                                 FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
@@ -420,7 +419,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                await FicLoBDContext.SaveChangesAsync();
                                 FicMensaje += await FicLoBDContext.SaveChangesAsync() >0? "-INSERT-> IdCEDI: " + inv.IdCEDI + " \n": "-ERROR EN INSERTAR-> IdCEDI: " + inv.IdCEDI + " \n";
                             }
                             catch (Exception e)
@@ -463,7 +461,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdAlmacen: " + inv.IdAlmacen + " \n": "-ERROR EN INSERTAR-> IdAlmacen: " + inv.IdAlmacen + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdAlmacen: " + inv.IdAlmacen + " \n" : "-ERROR EN INSERTAR-> IdAlmacen: " + inv.IdAlmacen + " \n";
                             }
                             catch (Exception e)
                             {
