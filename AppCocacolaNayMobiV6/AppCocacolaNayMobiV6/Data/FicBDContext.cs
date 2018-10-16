@@ -54,6 +54,10 @@ namespace AppCocacolaNayMobiV6.Data
         public DbSet<zt_cat_cedis> zt_cat_cedis { get; set; }
         public DbSet<zt_cat_almacenes> zt_cat_almacenes { get; set; }
 
+        /*PAGINACION*/
+        public DbSet<seg_cat_modulos> seg_cat_modulos { get; set; }
+        public DbSet<seg_cat_submodulos> seg_cat_submodulos { get; set; }
+        public DbSet<seg_cat_paginas> seg_cat_paginas { get; set; }
 
         protected async override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -85,7 +89,7 @@ namespace AppCocacolaNayMobiV6.Data
 
                 modelBuilder.Entity<zt_inventarios_acumulados>()
                    .HasKey(c => new { c.IdInventario, c.IdSKU, c.IdUnidadMedida });
-
+                
                 /*CREACION DE LLAVES FORANEAS*/
                 modelBuilder.Entity<zt_cat_almacenes>()
                 .HasOne(s => s.zt_cat_cedis).
@@ -131,6 +135,30 @@ namespace AppCocacolaNayMobiV6.Data
                 modelBuilder.Entity<zt_inventarios_acumulados>()
                 .HasOne(s => s.zt_cat_unidad_medidas).
                 WithMany().HasForeignKey(s => new { s.IdUnidadMedida });
+
+                /*PAGINACION*/
+                modelBuilder.Entity<seg_cat_modulos>()
+                    .HasKey(c => new { c.IdModulo });
+
+                modelBuilder.Entity<seg_cat_submodulos>()
+                    .HasKey(c => new {c.IdSubmodulo, c.IdModulo });
+
+                modelBuilder.Entity<seg_cat_submodulos>()
+                .HasOne(s => s.seg_cat_modulos).
+                WithMany().HasForeignKey(s => new { s.IdModulo });
+
+                modelBuilder.Entity<seg_cat_paginas>()
+                    .HasKey(c => new { c.IdPagina, c.IdModulo, c.IdSubmodulo });
+
+                modelBuilder.Entity<seg_cat_paginas>()
+                .HasOne(s => s.seg_cat_modulos).
+                WithMany().HasForeignKey(s => new { s.IdModulo });
+
+                modelBuilder.Entity<seg_cat_paginas>()
+                .HasOne(s => s.seg_cat_submodulos).
+                WithMany().HasForeignKey(s => new { s.IdSubmodulo });
+
+
             }
             catch (Exception e)
             {

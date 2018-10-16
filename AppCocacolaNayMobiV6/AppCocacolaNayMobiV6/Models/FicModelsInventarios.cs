@@ -210,4 +210,91 @@ namespace AppCocacolaNayMobiV6.Models
         public zt_cat_unidad_medidas zt_cat_unidad_medidas { get; set; }
     }
 
+
+    #region PAGINACION
+    public class seg_cat_modulos
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Int16 IdModulo { get; set; } //PK
+        [StringLength(100)]
+        public string DesModulo { get; set; }
+        public Nullable<Int16> Prioridad { get; set; }
+        [StringLength(255)]
+        public string RutaIcono { get; set; }
+        [StringLength(10)]
+        public string Version { get; set; }
+        [StringLength(20)]
+        public string Abreviatura { get; set; }
+        public Nullable<DateTime> FechaReg { get; set; }
+        [StringLength(20)]
+        public string UsuarioReg { get; set; }
+        public Nullable<DateTime> FechaUltMod { get; set; }
+        [StringLength(20)]
+        public string UsuarioMod { get; set; }
+        [StringLength(1)]
+        public string Activo { get; set; }
+        [StringLength(1)]
+        public string Borrado { get; set; }
+    }
+
+    public class seg_cat_submodulos
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Int16 IdSubmodulo { get; set; } //PK
+        public Int16 IdModulo{ get; set; } //PK
+        public seg_cat_modulos seg_cat_modulos { get; set; }
+        [StringLength(100)]
+        public string DesSubmodulo { get; set; }
+        public Nullable<Int16> Prioridad { get; set; }
+        [StringLength(255)]
+        public string RutaIcono { get; set; }
+        [StringLength(10)]
+        public string Version { get; set; }
+        [StringLength(20)]
+        public string Abreviatura { get; set; }
+        public Nullable<DateTime> FechaReg { get; set; }
+        [StringLength(20)]
+        public string UsuarioReg { get; set; }
+        public Nullable<DateTime> FechaUltMod { get; set; }
+        [StringLength(20)]
+        public string UsuarioMod { get; set; }
+        [StringLength(1)]
+        public string Activo { get; set; }
+        [StringLength(1)]
+        public string Borrado { get; set; }
+    }
+
+    public class seg_cat_paginas
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Int16 IdPagina { get; set; } //PK
+        public Int16 IdModulo { get; set; }
+        public seg_cat_modulos seg_cat_modulos { get; set; }
+        public Int16 IdSubmodulo { get; set; }
+        public seg_cat_submodulos seg_cat_submodulos { get; set; }
+        [StringLength(50)]
+        public string DesPagina { get; set; }
+        [StringLength(500)]
+        public string Detalle { get; set; }
+        [StringLength(10)]
+        public string Version { get; set; }
+        public Nullable<Int16> Orden { get; set; }
+        [StringLength(500)]
+        public string RutaPagina { get; set; }
+        [StringLength(255)]
+        public string RutaImagen { get; set; }
+        [StringLength(1)]
+        public string Visible { get; set; }
+        public Nullable<DateTime> FechaReg { get; set; }
+        [StringLength(20)]
+        public string UsuarioReg { get; set; }
+        public Nullable<DateTime> FechaUltMod { get; set; }
+        [StringLength(20)]
+        public string UsuarioMod { get; set; }
+        [StringLength(1)]
+        public string Activo { get; set; }
+        [StringLength(1)]
+        public string Borrado { get; set; }
+    }
+    #endregion
 }//NAMESPACE
