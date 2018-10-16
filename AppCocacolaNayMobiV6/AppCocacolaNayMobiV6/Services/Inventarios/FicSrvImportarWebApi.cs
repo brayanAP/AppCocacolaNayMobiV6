@@ -63,37 +63,37 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
         private async Task<zt_inventarios> FicExistzt_inventarios(int id)
         {
-            return await (from inv in FicLoBDContext.zt_inventarios where inv.IdInventario == id select inv).SingleOrDefaultAsync();
+            return await (from inv in FicLoBDContext.zt_inventarios where inv.IdInventario == id select inv).AsNoTracking().SingleOrDefaultAsync();
         }//buscar en local
 
         private async Task<zt_inventarios_conteos> FicExistzt_inventarios_conteos(int idinv, int IdAlmacen, string codigob, int NumCont, string ubicacion)
         {
-            return await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == idinv && con.IdAlmacen ==IdAlmacen && con.IdSKU == codigob && con.NumConteo == NumCont && con.IdUbicacion == ubicacion select con).SingleOrDefaultAsync();
+            return await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == idinv && con.IdAlmacen ==IdAlmacen && con.IdSKU == codigob && con.NumConteo == NumCont && con.IdUbicacion == ubicacion select con).AsNoTracking().SingleOrDefaultAsync();
         }//buscar en local
 
         private async Task<zt_inventarios_acumulados> FicExistzt_inventarios_acumulados(int idinv, string codigob)
         {
-            return await (from acu in FicLoBDContext.zt_inventarios_acumulados where acu.IdInventario == idinv && acu.IdSKU == codigob  select acu).SingleOrDefaultAsync();
+            return await (from acu in FicLoBDContext.zt_inventarios_acumulados where acu.IdInventario == idinv && acu.IdSKU == codigob  select acu).AsNoTracking().SingleOrDefaultAsync();
         }//buscar en local
 
         private async Task<zt_cat_productos> FicExistzt_cat_productos(string sku)
         {
-            return await (from acu in FicLoBDContext.zt_cat_productos where acu.IdSKU == sku select acu).SingleOrDefaultAsync();
+            return await (from acu in FicLoBDContext.zt_cat_productos where acu.IdSKU == sku select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
         private async Task<zt_cat_unidad_medidas> FicExistzt_cat_unidad_medidas(string id)
         {
-            return await (from acu in FicLoBDContext.zt_cat_unidad_medidas where acu.IdUnidadMedida == id select acu).SingleOrDefaultAsync();
+            return await (from acu in FicLoBDContext.zt_cat_unidad_medidas where acu.IdUnidadMedida == id select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
         private async Task<zt_cat_productos_medidas> FicExistzt_cat_productos_medidas(string sku,string id)
         {
-            return await (from acu in FicLoBDContext.zt_cat_productos_medidas where acu.IdSKU == sku && acu.IdUnidadMedida == id select acu).SingleOrDefaultAsync();
+            return await (from acu in FicLoBDContext.zt_cat_productos_medidas where acu.IdSKU == sku && acu.IdUnidadMedida == id select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
         private async Task<zt_cat_cedis> FicExistzt_cat_cedis(Int16 id)
         {
-            return await (from acu in FicLoBDContext.zt_cat_cedis where acu.IdCEDI == id select acu).SingleOrDefaultAsync();
+            return await (from acu in FicLoBDContext.zt_cat_cedis where acu.IdCEDI == id select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
         private async Task<zt_cat_almacenes> FicExistzt_cat_almacenes(Int16 id)

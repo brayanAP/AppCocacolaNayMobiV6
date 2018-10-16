@@ -25,14 +25,14 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         public async Task<IList<zt_inventarios_conteos>> FicMetGetListInventariosConteos()
         {
             return await (from conteo in FicLoBDContext.zt_inventarios_conteos
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }//LIST ALL
 
         private async Task<bool> FicExitInventariosConteo(zt_inventarios_conteos zt_inventarios_conteos)
         {
             return await (from conteo in FicLoBDContext.zt_inventarios_conteos
                           where conteo.IdInventario == zt_inventarios_conteos.IdInventario && conteo.IdSKU == zt_inventarios_conteos.IdSKU && conteo.IdAlmacen == zt_inventarios_conteos.IdAlmacen && conteo.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida && conteo.IdUbicacion == zt_inventarios_conteos.IdUbicacion
-                          select conteo).SingleOrDefaultAsync() == null ? true : false;
+                          select conteo).AsNoTracking().SingleOrDefaultAsync() == null ? true : false;
         }//BUSCA SI EXISTE UN REGISTRO
 
         private async Task<float> FicMetCantPza(string IdSku, string IdUnm, float cf)
@@ -41,7 +41,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                               join pro in FicLoBDContext.zt_cat_productos on prome.IdSKU equals pro.IdSKU
                               join unm in FicLoBDContext.zt_cat_unidad_medidas on prome.IdUnidadMedida equals unm.IdUnidadMedida
                               where pro.IdSKU == IdSku && unm.IdUnidadMedida == IdUnm
-                              select prome).SingleOrDefaultAsync();
+                              select prome).AsNoTracking().SingleOrDefaultAsync();
             return temp == null ? 0 : temp.CantidadPZA * cf;
         }
 
@@ -53,7 +53,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                              join alm in FicLoBDContext.zt_cat_almacenes on conteo.IdAlmacen equals alm.IdAlmacen
                              join unm in FicLoBDContext.zt_cat_unidad_medidas on conteo.IdUnidadMedida equals unm.IdUnidadMedida
                              where pro.IdSKU == zt_inventarios_conteos.IdSKU && alm.IdAlmacen == zt_inventarios_conteos.IdAlmacen && unm.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida && conteo.IdUbicacion == zt_inventarios_conteos.IdUbicacion && inv.IdInventario == zt_inventarios_conteos.IdInventario //&& conteo.NumConteo == zt_inventarios_conteos.NumConteo
-                             select conteo).ToListAsync();
+                             select conteo).AsNoTracking().ToListAsync();
 
             if (bus != null && bus.Count != 0)
             {
@@ -70,9 +70,9 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
             return new body_edit_conteo_item()
             {
-                zt_cat_almacenes = await (from con in FicLoBDContext.zt_cat_almacenes where con.IdAlmacen == zt_inventarios_conteos.IdAlmacen select con).SingleOrDefaultAsync() as zt_cat_almacenes,
-                zt_cat_productos = await (from con in FicLoBDContext.zt_cat_productos where con.IdSKU == zt_inventarios_conteos.IdSKU select con).SingleOrDefaultAsync() as zt_cat_productos,
-                zt_cat_unidad_medidas = await (from con in FicLoBDContext.zt_cat_unidad_medidas where con.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida select con).SingleOrDefaultAsync() as zt_cat_unidad_medidas
+                zt_cat_almacenes = await (from con in FicLoBDContext.zt_cat_almacenes where con.IdAlmacen == zt_inventarios_conteos.IdAlmacen select con).AsNoTracking().SingleOrDefaultAsync() as zt_cat_almacenes,
+                zt_cat_productos = await (from con in FicLoBDContext.zt_cat_productos where con.IdSKU == zt_inventarios_conteos.IdSKU select con).AsNoTracking().SingleOrDefaultAsync() as zt_cat_productos,
+                zt_cat_unidad_medidas = await (from con in FicLoBDContext.zt_cat_unidad_medidas where con.IdUnidadMedida == zt_inventarios_conteos.IdUnidadMedida select con).AsNoTracking().SingleOrDefaultAsync() as zt_cat_unidad_medidas
             };
         }
 
@@ -144,25 +144,25 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         public async Task<IList<zt_cat_almacenes>> FicMetGetListAlmacenes()
         {
             return await (from conteo in FicLoBDContext.zt_cat_almacenes
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }
 
         public async Task<IList<zt_cat_unidad_medidas>> FicMetGetListCatUnidadMedida()
         {
             return await (from conteo in FicLoBDContext.zt_cat_unidad_medidas
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }
 
         public async Task<IList<zt_cat_productos>> FicMetGetListCatProductos()
         {
             return await (from conteo in FicLoBDContext.zt_cat_productos
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }
 
         public async Task<IList<zt_cat_cedis>> FicMetGetListCedis()
         {
             return await (from conteo in FicLoBDContext.zt_cat_cedis
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }
 
     }//CLASS

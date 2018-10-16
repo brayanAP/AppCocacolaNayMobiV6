@@ -24,9 +24,9 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         public async Task<List<zt_inventarios_acumulados>> FicMetGetAcumuladosList(int _idinventario)
         {
             /*TRAEGO TODOS LOS CONTEOS*/
-            var FicSourceConteos = await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == _idinventario select con).ToListAsync();
+            var FicSourceConteos = await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == _idinventario select con).AsNoTracking().ToListAsync();
             /*TRAEGO CADA UNO DE LOS PRODUCTOS, PERO SIN REPETIRCE*/
-            var FicSourceProductos = await (from c in FicLoBDContext.zt_inventarios_conteos where c.IdInventario == _idinventario group c by c.IdSKU into c select c.Key).ToListAsync();
+            var FicSourceProductos = await (from c in FicLoBDContext.zt_inventarios_conteos where c.IdInventario == _idinventario group c by c.IdSKU into c select c.Key).AsNoTracking().ToListAsync();
 
             if (FicSourceConteos != null)
             {
@@ -77,7 +77,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                 }//LISTA DE PRODUCTOS
             }//SI EXISTEN CONTEOS
 
-            return await (from acu in FicLoBDContext.zt_inventarios_acumulados select acu).ToListAsync();
+            return await (from acu in FicLoBDContext.zt_inventarios_acumulados select acu).AsNoTracking().ToListAsync();
         }
     }//CLASS
 }//NAMESPACE

@@ -23,7 +23,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
         public async Task<IEnumerable<zt_inventarios>> FicMetGetListInventarios()
         {
-            return await (from inv in FicLoBDContext.zt_inventarios select inv).ToListAsync();
+            return await (from inv in FicLoBDContext.zt_inventarios select inv).AsNoTracking().ToListAsync();
         }//TRAER UNA LISTA CON TODOS LOS zt_inventarios
 
     }//CLASS

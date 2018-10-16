@@ -43,9 +43,9 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         {
             return await FicPostListInventarios(new zt_inventatios_acumulados_conteos()
             {
-                zt_inventarios = await (from a in FicLoBDContext.zt_inventarios select a).ToListAsync(),
-                zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados select a).ToListAsync(),
-                zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos select a).ToListAsync()
+                zt_inventarios = await (from a in FicLoBDContext.zt_inventarios select a).AsNoTracking().ToListAsync(),
+                zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados select a).AsNoTracking().ToListAsync(),
+                zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos select a).AsNoTracking().ToListAsync()
             });
         }//METODO DE EXPORT INVENTARIOS
 
