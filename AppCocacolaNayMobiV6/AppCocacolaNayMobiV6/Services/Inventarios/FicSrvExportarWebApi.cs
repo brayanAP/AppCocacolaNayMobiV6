@@ -29,7 +29,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
         private async Task<string> FicPostListInventarios(zt_inventatios_acumulados_conteos item)
         {
-            const string url = "http://localhost:60304/api/inventarios/invacocon";
+            const string url = "http://localhost:54068/api/inventarios/invacocon/export";
 
             HttpResponseMessage response = await FiClient.PostAsync(
                 new Uri(string.Format(url, string.Empty)), 
@@ -41,24 +41,12 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
         public async Task<string> FicPostExportInventarios()
         {
-            var FicSourceInventarios = await (
-                from inv in FicLoBDContext.zt_inventarios
-                join acu in FicLoBDContext.zt_inventarios_acumulados on inv.IdInventario equals acu.IdInventario
-                join con in FicLoBDContext.zt_inventarios_conteos on inv.IdInventario equals con.IdInventario
-                select new {inv,acu,con}
-                ).GroupBy(x => x).Select(group => new
-                {
-                    list_zt_inventarios = group.Select(v => v.inv),
-                    list_zt_inventarios_acumulados = group.Select(v => v.acu),
-                    list_zt_inventarios_conteos = group.Select(v => v.con)
-                }).ToListAsync();
-
-            return FicSourceInventarios == null ? await FicPostListInventarios(new zt_inventatios_acumulados_conteos()
+            return await FicPostListInventarios(new zt_inventatios_acumulados_conteos()
             {
-                zt_inventarios = FicSourceInventarios.First().list_zt_inventarios as List<zt_inventarios>,
-                zt_inventarios_acumulados = FicSourceInventarios.First().list_zt_inventarios_acumulados as List<zt_inventarios_acumulados>,
-                zt_inventarios_conteos = FicSourceInventarios.First().list_zt_inventarios_conteos as List<zt_inventarios_conteos>
-            }) : "SIN DATOS, QUE EXPORTAR";
+                zt_inventarios = await (from a in FicLoBDContext.zt_inventarios select a).ToListAsync(),
+                zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados select a).ToListAsync(),
+                zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos select a).ToListAsync()
+            });
         }//METODO DE EXPORT INVENTARIOS
 
     }//CLASS 
