@@ -49,7 +49,7 @@
 
                 <Label Text="SKU"/>
                 <!--<syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" />-->
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicSku" DisplayMemberPath="IdSKU" DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}">
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicSKU" DisplayMemberPath="IdSKU" DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}">
                     <syncfusion:SfAutoComplete.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">

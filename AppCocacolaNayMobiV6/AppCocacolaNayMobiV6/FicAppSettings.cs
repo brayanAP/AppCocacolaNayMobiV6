@@ -7,6 +7,6 @@ namespace AppCocacolaNayMobiV6
     public class FicAppSettings
     {
         /*DE AQUI TOMAREMOS EL NOMBRE DE NUESTRA BD EN TODA LA APP*/
-        public static string FicDataBaseName = "CocacolaNayBD17.db3";
+        public static string FicDataBaseName = "CocacolaNayBD2.db3";
     }//CLASS
 }//NAMESPACE

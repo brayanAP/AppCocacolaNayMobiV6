@@ -8,6 +8,6 @@ namespace AppCocacolaNayMobiV6.Interfaces.Inventarios
 {
     public interface IFicSrvInventarioAcumuladoList
     {
-        Task<IList<zt_inventarios_acumulados>> FicMetGetAcumuladosList(int _idinventario);
+        Task<List<zt_inventarios_acumulados>> FicMetGetAcumuladosList(int _idinventario);
     }//CLASS
 }//NAMESPACE

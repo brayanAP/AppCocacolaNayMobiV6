@@ -21,21 +21,21 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             FicLoBDContext = new FicBDContext(DependencyService.Get<IFicConfigSQLite>().FicGetDataBasePath());
         }//CONSTRUCTOR
 
-        public async Task<IList<zt_inventarios_acumulados>> FicMetGetAcumuladosList(int _idinventario)
+        public async Task<List<zt_inventarios_acumulados>> FicMetGetAcumuladosList(int _idinventario)
         {
             /*TRAEGO TODOS LOS CONTEOS*/
             var FicSourceConteos = await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == _idinventario select con).ToListAsync();
             /*TRAEGO CADA UNO DE LOS PRODUCTOS, PERO SIN REPETIRCE*/
-            var FicSourceProductos = FicSourceConteos.Distinct();
+            var FicSourceProductos = await (from c in FicLoBDContext.zt_inventarios_conteos where c.IdInventario == _idinventario group c by c.IdSKU into c select c.Key).ToListAsync();
 
             if (FicSourceConteos != null)
             {
                 if(FicSourceProductos != null)
                 {
 
-                    foreach (zt_inventarios_conteos c in FicSourceProductos.ToList())
+                    foreach (string c in FicSourceProductos)
                     {
-                        var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c.IdSKU select t).ToList();
+                        var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c select t).ToList();
 
                         if (FicSourceSuma != null)
                         {
@@ -44,14 +44,14 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 SumaPZA = conteo.Sum(l => l.CantidadPZA)
                             });
 
-                            var FicSourceAcumulados = await (from t in FicLoBDContext.zt_inventarios_acumulados where t.IdSKU == c.IdSKU && t.IdInventario == _idinventario select t).SingleOrDefaultAsync();
+                            var FicSourceAcumulados = await (from t in FicLoBDContext.zt_inventarios_acumulados where t.IdSKU == c && t.IdInventario == _idinventario select t).SingleOrDefaultAsync();
 
                             if (FicSourceAcumulados == null)
                             {
                                 await FicLoBDContext.AddAsync(new zt_inventarios_acumulados()
                                 {
                                     IdInventario = _idinventario,
-                                    IdSKU = c.IdSKU,
+                                    IdSKU = c,
                                     CantidadTeorica = FicSuma.First().SumaPZA,
                                     CantidadFisica = FicSuma.First().SumaPZA,
                                     Diferencia = 0,
@@ -68,7 +68,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 FicSourceAcumulados.CantidadFisica = FicSuma.First().SumaPZA;
                                 FicSourceAcumulados.FechaUltMod = DateTime.Now;
                                 FicSourceAcumulados.UsuarioMod = "BUAP";
-                                FicLoBDContext.Update(FicSourceAcumulados);
+                               // FicLoBDContext.Update(FicSourceAcumulados);
                                 await FicLoBDContext.SaveChangesAsync();
                             }//INSERT o UPDATE DEL ACUMULADO
                         }//TRAER LA SUMA DE PIEZAS DEL CONTEO DE ESE PRODUCTO

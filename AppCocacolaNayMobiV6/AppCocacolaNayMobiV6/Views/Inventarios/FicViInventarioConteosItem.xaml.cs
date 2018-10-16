@@ -36,7 +36,7 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
                 if (FicCuerpoNavigationContext[1] != null) {
                     FicViewModel.FicModo = true;
                     FicCodigoBarras.IsEnabled = false;
-                    FicSku.IsEnabled = false;
+                    FicSKU.IsEnabled = false;
                     FicUnm.IsEnabled = false;
                     FicAlm.IsEnabled = false;
                     FicUb.IsEnabled = false;
@@ -47,6 +47,11 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
                 FicCodigoBarras.ValueChanged += (object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e) =>
                 {
                     FicViewModel.FicMetLoadInfoTomaCodigoBarra();
+                };
+
+                FicSKU.ValueChanged += (object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e) =>
+                {
+                    FicViewModel.FicMetLoadInfoTomaSKU();
                 };
             }
         }//SE EJECUTA CUANDO SE ABRE LA VIEW

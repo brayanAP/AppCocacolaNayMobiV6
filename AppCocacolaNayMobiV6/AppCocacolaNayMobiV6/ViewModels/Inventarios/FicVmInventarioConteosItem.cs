@@ -308,6 +308,35 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             }
         }//FicMetLoadInfoTomaCodigoBarra()
 
+        public void FicMetLoadInfoTomaSKU()
+        {
+            try
+            {
+                //var temp = FicExitsCodigoBarra(_CodigoBarra);
+                if (_IdSKU != null)
+                {
+                    _DesSKU = _IdSKU.DesSKU;
+                    RaisePropertyChanged("DesSKU");
+                    _CodigoBarra=_IdSKU;
+                    RaisePropertyChanged("CodigoBarra");
+                }
+                else
+                {
+                    _DesSKU = "NO ENCONTRADO.";
+                    RaisePropertyChanged("DesSKU");
+                    _CodigoBarra=_IdSKU;
+                    RaisePropertyChanged("CodigoBarra");
+                }
+            }
+            catch (Exception e)
+            {
+                _DesSKU = "NO ENCONTRADO.";
+                RaisePropertyChanged("DesSKU");
+                _CodigoBarra=_IdSKU;
+                RaisePropertyChanged("CodigoBarra");
+            }
+        }//FicMetLoadInfoTomaSKU()
+
         #region MANEJO DE COMANDOS
         public ICommand FicMetRegesarConteoListICommand
         {

@@ -26,7 +26,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             return await (from conteo in FicLoBDContext.zt_inventarios_conteos
                           join inv in FicLoBDContext.zt_inventarios on conteo.IdInventario equals inv.IdInventario
                           where inv.IdInventario == IdInventario
-                          select conteo).ToListAsync();
+                          select conteo).AsNoTracking().ToListAsync();
         }//LIST ALL
 
     }//CLASS

@@ -30,9 +30,11 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         {
             try
             {
-                string u="";
-                if (id != 0) u = "?id="+id;
-                string url = "http://localhost:60304/api/inventarios/invacocon"+u;
+                string url = "";
+                if (id != 0) url = "http://localhost:54068/api/inventarios/invacoconid" + "?id=" + id;
+                else url = "http://localhost:54068/api/inventarios/invacocon";
+
+
                 var response = await FiClient.GetAsync(url);
                return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<zt_inventatios_acumulados_conteos>(await response.Content.ReadAsStringAsync()) : null;
             }
@@ -45,7 +47,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
 
         private async Task<zt_catalogos_productos_medidas_cedi_almacenes> FicGetListCatalogosActualiza()
         {
-            const string url = "http://localhost:60304/api/inventarios/catalogos";
+            const string url = "http://localhost:54068/api/inventarios/catalogos";
 
             try
             {
@@ -128,8 +130,8 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicLoBDContext.Update(respuesta);
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " \n" : "-ERROR AL ACTUALIZAR->  IdInventario: " + inv.IdInventario + " \n";
+                               // FicLoBDContext.Update(respuesta);
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " \n" : "-NO NECESITO ACTUALIZAR->  IdInventario: " + inv.IdInventario + " \n";
                             }
                             catch (Exception e)
                             {
@@ -141,7 +143,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " \n" : "-ERROR AL INSERTAR-> IdInventario: " + inv.IdInventario + " \n";
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " \n" : "-ERROR EN INSERT-> IdInventario: " + inv.IdInventario + " \n";
                             }
                             catch (Exception e)
                             {
@@ -176,8 +178,8 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioReg = inv.UsuarioReg;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicLoBDContext.Update(respuesta);
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n" : "-ERROR AL ACTUALIZAR-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n";
+                                //FicLoBDContext.Update(respuesta);
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n" : "-NO NECESITO ACTUALIZAR-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n";
                             }
                             catch (Exception e)
                             {
@@ -189,7 +191,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n" : "-ERROR AL INSERTAR-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n";
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n" : "-ERROR EN INSERT-> IdInventario: " + inv.IdInventario + " ,IdAlmacen: " + inv.IdAlmacen + " ,IdSKU: " + inv.IdSKU + " ,NumConteo: " + inv.NumConteo + " ,IdUbicacion: " + inv.IdUbicacion + " \n";
                             }
                             catch (Exception e)
                             {
@@ -222,8 +224,8 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicLoBDContext.Update(respuesta);
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL INSERTAR-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n";
+                                //FicLoBDContext.Update(respuesta);
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -235,7 +237,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL ACTUALIZAR-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERT-> IdInventario: " + inv.IdInventario + " ,IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -280,7 +282,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL ACTUALIZAR-> IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdSKU: " + inv.IdSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -292,7 +294,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL INSERTAR-> IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERTAR-> IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -321,7 +323,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n" : "-ERROR AL ACTUALIZAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n" : "-NO NECESITO ACTUALIZAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n";
                             }
                             catch (Exception e)
                             {
@@ -333,7 +335,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n" : "-ERROR AL INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n" : "-ERROR EN INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n";
                             }
                             catch (Exception e)
                             {
@@ -363,7 +365,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync()>0 ? "-UPDATE-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL ACTUALIZAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync()>0 ? "-UPDATE-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -376,7 +378,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             {
                                 FicLoBDContext.Add(inv);
                                 await FicLoBDContext.SaveChangesAsync();
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR AL INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " ,IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -405,8 +407,8 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                await FicLoBDContext.SaveChangesAsync();
-                                FicMensaje += "-UPDATE-> IdCEDI: " + inv.IdCEDI + " \n";
+                                
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() >0 ? "-UPDATE-> IdCEDI: " + inv.IdCEDI + " \n": "-NO NECESITO ACTUALIZAR-> IdCEDI: " + inv.IdCEDI + " \n";
                             }
                             catch (Exception e)
                             {
@@ -419,7 +421,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             {
                                 FicLoBDContext.Add(inv);
                                 await FicLoBDContext.SaveChangesAsync();
-                                FicMensaje += "-INSERT-> IdCEDI: " + inv.IdCEDI + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() >0? "-INSERT-> IdCEDI: " + inv.IdCEDI + " \n": "-ERROR EN INSERTAR-> IdCEDI: " + inv.IdCEDI + " \n";
                             }
                             catch (Exception e)
                             {
@@ -449,8 +451,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                await FicLoBDContext.SaveChangesAsync();
-                                FicMensaje += "-UPDATE-> IdAlmacen: " + inv.IdAlmacen + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() >0 ?  "-UPDATE-> IdAlmacen: " + inv.IdAlmacen + " \n": "-NO NECESITO ACTUALIZAR-> IdAlmacen: " + inv.IdAlmacen + " \n";
                             }
                             catch (Exception e)
                             {
@@ -462,8 +463,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                await FicLoBDContext.SaveChangesAsync();
-                                FicMensaje += "-INSERT-> IdAlmacen: " + inv.IdAlmacen + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdAlmacen: " + inv.IdAlmacen + " \n": "-ERROR EN INSERTAR-> IdAlmacen: " + inv.IdAlmacen + " \n";
                             }
                             catch (Exception e)
                             {
