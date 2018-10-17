@@ -296,5 +296,12 @@ namespace AppCocacolaNayMobiV6.Models
         [StringLength(1)]
         public string Borrado { get; set; }
     }
+
+    public class seg_cat_mod_sub_pag
+    {
+        public List<seg_cat_modulos> seg_cat_modulos { get; set; }
+        public List<seg_cat_submodulos> seg_cat_submodulos { get; set; }
+        public List<seg_cat_paginas> seg_cat_paginas { get; set; }
+    }
     #endregion
 }//NAMESPACE

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCocacolaNayMobiV6.iOS", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCocacolaNayMobiV6.UWP", "AppCocacolaNayMobiV6\AppCocacolaNayMobiV6.UWP\AppCocacolaNayMobiV6.UWP.csproj", "{E05738E8-CD92-469F-B776-EB852AFCD7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCocacolaNayMobiV6", "AppCocacolaNayMobiV6\AppCocacolaNayMobiV6\AppCocacolaNayMobiV6.csproj", "{EFB0D3E0-DE91-4B44-8B2C-E9BA7C2AE318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCocacolaNayMobiV6", "AppCocacolaNayMobiV6\AppCocacolaNayMobiV6\AppCocacolaNayMobiV6.csproj", "{EFB0D3E0-DE91-4B44-8B2C-E9BA7C2AE318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
