@@ -29,5 +29,13 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                           select conteo).AsNoTracking().ToListAsync();
         }//LIST ALL
 
+        public async Task<IList<zt_inventarios_conteos>> FicMetGetListInventariosConteos(int IdInventario, zt_inventarios_acumulados item)
+        {
+            return await (from conteo in FicLoBDContext.zt_inventarios_conteos
+                          join inv in FicLoBDContext.zt_inventarios on conteo.IdInventario equals inv.IdInventario
+                          where inv.IdInventario == IdInventario && conteo.IdSKU == item.IdSKU
+                          select conteo).AsNoTracking().ToListAsync();
+        }//LIST ALL
+
     }//CLASS
 }//NAMESPACE

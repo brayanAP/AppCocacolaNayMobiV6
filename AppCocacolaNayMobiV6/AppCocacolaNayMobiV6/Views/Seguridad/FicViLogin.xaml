@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV6.Views.Seguridad.FicViLogin">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Margin="20,0,20,0">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <!--<Image Source="login.png" HeightRequest="250" WidthRequest="170"/>-->
+                    <Entry x:Name="User" Text="{Binding Usuario}" Grid.Row="1" Placeholder="Nombre de Usuario" PlaceholderColor="#bababa" FontSize="Medium" VerticalOptions="Center"/>
+                    <Entry x:Name="Pass" Text="{Binding Contraseña}" Grid.Row="2" Placeholder="Contraseña" PlaceholderColor="#bababa" FontSize="Medium" IsPassword="True"/>
+                    <Button x:Name="BtnEntrar"  Text="Iniciar Sesión" BackgroundColor="#1CCB39" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="3"/>
+                    <Button x:Name="BtnOc" Text="¿Olvidaste tu Contraseña? | Restablecer Contraseña" Grid.RowSpan="2" BackgroundColor="White" TextColor="Black" FontSize="12" FontAttributes="Italic" HorizontalOptions="Center" Grid.Row="4" Margin="10,10,10,10"/>
+                    <ActivityIndicator x:Name="EsperarAc"  Color="Red"  />
+                    <StackLayout>
+                        <Label x:Name="statusInternet" IsVisible="False"/>
+                    </StackLayout>
+
+                    <Grid Grid.Row="6">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                        <Label Text="Otras Opciones" FontSize="Medium" FontAttributes="Italic" Grid.Column="1"  VerticalOptions="Center" Margin="10,0,10,0"/>
+
+                        <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+
+                    </Grid>
+
+                    <StackLayout Grid.Row="7">
+                        <Button Text="Iniciar Sesión con Facebook" BackgroundColor="#3399ff" TextColor="White" Grid.ColumnSpan="4" HeightRequest="50" VerticalOptions="Start" Grid.Row="3" Image="facebook.png"
+                            />
+                        <Button Text="Iniciar Sesión con Gmail" BackgroundColor="Red" TextColor="White" Grid.ColumnSpan="4" HeightRequest="50" VerticalOptions="Start" Grid.Row="4" Image="gmail.png"
+                            />
+                    </StackLayout>
+
+
+                </Grid>
+
+                <StackLayout Grid.Row="2">
+                    <!--<Button x:Name="NewUser" Clicked="NewUser_Clicked" Text="¿ No estas registrado ? | Crear Nuevo Usuario" BackgroundColor="LightSlateGray" TextColor="Black" VerticalOptions="Center" Grid.Row="1"/>-->
+                </StackLayout>
+
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

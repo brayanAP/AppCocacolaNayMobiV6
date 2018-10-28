@@ -147,6 +147,13 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                           select conteo).AsNoTracking().ToListAsync();
         }
 
+        public async Task<zt_cat_almacenes> FicMetGetItemAlmacenes(string id)
+        {
+            return await (from conteo in FicLoBDContext.zt_cat_almacenes
+                          where conteo.IdAlmacen == id
+                          select conteo).AsNoTracking().SingleOrDefaultAsync();
+        }
+
         public async Task<IList<zt_cat_unidad_medidas>> FicMetGetListCatUnidadMedida()
         {
             return await (from conteo in FicLoBDContext.zt_cat_unidad_medidas
@@ -163,6 +170,14 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         {
             return await (from conteo in FicLoBDContext.zt_cat_cedis
                           select conteo).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IList<zt_cat_ubicaciones>> FicMetGetListUbicacion(string idalm)
+        {
+            return await (from ub in FicLoBDContext.zt_cat_ubicaciones
+                          join alm in FicLoBDContext.zt_almacenes_ubicaciones on ub.IdUbicacion equals alm.IdUbicacion
+                          where alm.IdAlmacen == idalm && ub.IdUbicacion == alm.IdUbicacion
+                          select ub).AsNoTracking().ToListAsync();
         }
 
     }//CLASS

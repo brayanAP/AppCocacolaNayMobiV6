@@ -29,7 +29,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             this.IFicSrvInventariosConteoList = IFicSrvInventariosConteoList;
         }//CONSTRUCTOR
 
-        public object FicNavigationContextE { get; set; }
+        public object[] FicNavigationContextE { get; set; }
 
         public string FicLabelIdInventario
         {
@@ -114,7 +114,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         {
             try
             {
-                object[] temp = { FicNavigationContextE, null };
+                object[] temp = { FicNavigationContextE[0], null };
                 IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteosItem>(temp);
             }
             catch (Exception e)
@@ -138,7 +138,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             {
                 if(_FicSfDataGrid_SelectItem_Conteo != null)
                 {
-                    object[] TempContext = { FicNavigationContextE, _FicSfDataGrid_SelectItem_Conteo };
+                    object[] TempContext = { FicNavigationContextE[0], _FicSfDataGrid_SelectItem_Conteo };
 
                     IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteosItem>(TempContext);
                 }
@@ -153,7 +153,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
 
         public async void OnAppearing()
         {
-           var FicSourceInventarios= FicNavigationContextE as zt_inventarios;
+           var FicSourceInventarios= FicNavigationContextE[0] as zt_inventarios;
 
             /*LLENAR ENCABEZADO*/
             _FicLabelIdInventario = FicSourceInventarios.IdInventario + "";
@@ -163,17 +163,38 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             RaisePropertyChanged("FicLabelIdCEDI");
             RaisePropertyChanged("FicLabelFechaReg");
 
-            /*LLENAR EL GRID*/
-            _FicSfDataGrid_ItemSource_Conteo = new ObservableCollection<zt_inventarios_conteos>();
-            var source = await IFicSrvInventariosConteoList.FicMetGetListInventariosConteos(FicSourceInventarios.IdInventario);
-            if(source != null)
-            {
-                foreach(zt_inventarios_conteos con in source)
-                {
-                    _FicSfDataGrid_ItemSource_Conteo.Add(con);
-                }
 
-                RaisePropertyChanged("FicSfDataGrid_ItemSource_Conteo");
+            var FicSourceAcumulado = FicNavigationContextE[1] as zt_inventarios_acumulados;
+
+            if(FicSourceAcumulado != null)
+            {
+                /*LLENAR EL GRID DE MODO FILTRO SKU*/
+                _FicSfDataGrid_ItemSource_Conteo = new ObservableCollection<zt_inventarios_conteos>();
+                var source = await IFicSrvInventariosConteoList.FicMetGetListInventariosConteos(FicSourceInventarios.IdInventario, FicSourceAcumulado);
+                if (source != null)
+                {
+                    foreach (zt_inventarios_conteos con in source)
+                    {
+                        _FicSfDataGrid_ItemSource_Conteo.Add(con);
+                    }
+
+                    RaisePropertyChanged("FicSfDataGrid_ItemSource_Conteo");
+                }
+            }
+            else
+            {
+                /*LLENAR EL GRID DE MODO TODOS*/
+                _FicSfDataGrid_ItemSource_Conteo = new ObservableCollection<zt_inventarios_conteos>();
+                var source = await IFicSrvInventariosConteoList.FicMetGetListInventariosConteos(FicSourceInventarios.IdInventario);
+                if (source != null)
+                {
+                    foreach (zt_inventarios_conteos con in source)
+                    {
+                        _FicSfDataGrid_ItemSource_Conteo.Add(con);
+                    }
+
+                    RaisePropertyChanged("FicSfDataGrid_ItemSource_Conteo");
+                }
             }
         }//SOBRE CARGA DEL METODO DE CUANDO SE INICIA LA APP DE LA VIEW
 

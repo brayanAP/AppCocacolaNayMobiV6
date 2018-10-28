@@ -23,7 +23,7 @@
                         Placeholder="Filtrar informacion..."
                         PlaceholderColor="Red"
                         x:Name="FicSearchBar"/>
-
+            
             <syncfusion:SfDataGrid
                         VerticalOptions="FillAndExpand"
                         ColumnSizer="Star"
@@ -34,9 +34,12 @@
                         SelectionMode="Single">
                 <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ID" MappingName="IdInventario" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ESTATUS" MappingName="IdEstatus" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="SAP" MappingName="IdInventarioSAP" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ALMACEN" MappingName="IdAlmacen" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="CEDI" MappingName="IdCEDI" />
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Fecha" MappingName="FechaReg" />
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Usuario" MappingName="UsuarioReg" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="FECHA" MappingName="FechaReg" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="USUARIO" MappingName="UsuarioReg" />
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
 

@@ -23,11 +23,12 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         private IFicSrvInventariosConteosItem IFicSrvInventariosConteosItem;
 
         /*ESTAS VARIABLES SON PARA MANEJO LOGICO DE LOS BIDING DE LA VIEW*/
-        private string _FicLabelInventario, _FicLabelCEDI, _FicLabelFecha, _IdUbicacion, _Lote, _DesSKU;
+        private string _FicLabelInventario, _FicLabelCEDI, _FicLabelFecha, _Lote, _DesSKU;
         private int _CantidadFisica;
         private zt_cat_productos _CodigoBarra, _IdSKU;
         private zt_cat_unidad_medidas _IdUnidadMedida;
         private zt_cat_almacenes _IdAlmacen;
+        private zt_cat_ubicaciones _IdUbicacion;
 
         /*ESTAS VARIABLES SON PARA MANEJO LOGICO DE LOS COMANDOS DE LA VIEW*/
         private ICommand _FicMetRegesarConteoListICommand;
@@ -38,6 +39,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         private ObservableCollection<zt_cat_unidad_medidas> _FicSourceIdUnidadMedida;
         private ObservableCollection<zt_cat_productos> _FicSourceStringIdSku;
         private ObservableCollection<zt_cat_productos> _FicSourceStringCodigoBarra;
+        private ObservableCollection<zt_cat_ubicaciones> _FicSourceIdUbicacion;
 
         /*ESTA VARIABLE NOS AYUDARA LA LISTA DE PRODUCTOS QUE NOS TRAJO EL METODO QUE USAMOS PARA LLENAR EL AUTOCOMPLETABLE*/
         private List<zt_cat_productos> FicSourceZt_cat_productos;
@@ -64,7 +66,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         public string FicLabelFecha { get { return _FicLabelFecha; } }
 
         /*HACEN REFERENCIA A LOS BIDING'S DE LA VIEW -> DEL CUERPO*/
-        public string IdUbicacion
+        public zt_cat_ubicaciones IdUbicacion
         {
             get { return _IdUbicacion; }
             set
@@ -175,6 +177,9 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         public ObservableCollection<zt_cat_unidad_medidas> FicSourceAutoCompleteIdUnidadMedida { get { return _FicSourceIdUnidadMedida; } }
 
         public ObservableCollection<zt_cat_productos> FicSourceAutoCompleteCodigoBarras { get { return _FicSourceStringCodigoBarra; } }
+
+        public ObservableCollection<zt_cat_ubicaciones> FicSourceAutoCompleteIdUbicacion { get { return _FicSourceIdUbicacion; } }
+
         #endregion
 
         /*ESTE METODO ES EL QUE SE LLAMA EN LA VIEW EN EL METODO CON EL MISMO NOMBRE*/
@@ -204,6 +209,16 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
                 {
                     _FicSourceStringIdAlmacen.Add(alm);
                 }
+
+                _IdAlmacen = await IFicSrvInventariosConteosItem.FicMetGetItemAlmacenes(FicSource_zt_inventarios.IdAlmacen);
+                RaisePropertyChanged("IdAlmacen");
+
+                _FicSourceIdUbicacion = new ObservableCollection<zt_cat_ubicaciones>();
+                foreach (zt_cat_ubicaciones ub in await IFicSrvInventariosConteosItem.FicMetGetListUbicacion(_IdAlmacen.IdAlmacen))
+                {
+                    _FicSourceIdUbicacion.Add(ub);
+                }
+                RaisePropertyChanged("FicSourceAutoCompleteIdUbicacion");
 
                 _FicSourceIdUnidadMedida = new ObservableCollection<zt_cat_unidad_medidas>();
                 foreach (zt_cat_unidad_medidas unm in await IFicSrvInventariosConteosItem.FicMetGetListCatUnidadMedida())
@@ -244,7 +259,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
                         if (FicSourceBody.zt_cat_unidad_medidas != null) _IdUnidadMedida = FicSourceBody.zt_cat_unidad_medidas;
 
                         _CantidadFisica = (int)FicSourceZt_inventarios_conteo.CantidadFisica;
-                        _IdUbicacion = FicSourceZt_inventarios_conteo.IdUbicacion;
+                       // _IdUbicacion = FicSourceZt_inventarios_conteo.IdUbicacion;
                         _Lote = FicSourceZt_inventarios_conteo.Lote;
          
                         /*ACTUALIZACION DEL CUERPO EN LA VIEW*/
@@ -308,6 +323,26 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             }
         }//FicMetLoadInfoTomaCodigoBarra()
 
+        public async void FicMetLoadInfoTomaAlmacenUbicacion()
+        {
+            try
+            {
+                _FicSourceIdUbicacion = new ObservableCollection<zt_cat_ubicaciones>();
+                    foreach (zt_cat_ubicaciones ub in await IFicSrvInventariosConteosItem.FicMetGetListUbicacion(_IdAlmacen.IdAlmacen))
+                    {
+
+                        if(!(_FicSourceIdUbicacion.Any(x => x.IdUbicacion == ub.IdUbicacion)))
+                            _FicSourceIdUbicacion.Add(ub);
+                    }
+                    RaisePropertyChanged("FicSourceAutoCompleteIdUbicacion");
+      
+            }
+            catch (Exception)
+            {
+
+            }
+        }//FicMetLoadInfoTomaAlmacenUbicacion()
+
         public void FicMetLoadInfoTomaSKU()
         {
             try
@@ -364,11 +399,62 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             get { return _FicMetAddConteoItemIcommand = _FicMetAddConteoItemIcommand ?? new FicVmDelegateCommand(SaveCommandExecute); }
         }
 
+        private string _TxtCodigoBarras;
+        public string TxtCodigoBarras { get { return _TxtCodigoBarras; } }
+
+        private string _TxtSKU;
+        public string TxtSKU { get { return _TxtSKU; } }
+
+        private string _TxtUnidadMedida;
+        public string TxtUnidadMedida { get { return _TxtUnidadMedida; } }
+
+        private string _TxtAlmacen;
+        public string TxtAlmacen { get { return _TxtAlmacen; } }
+
+        private string _TxtUbicacion;
+        public string TxtUbicacion { get { return _TxtUbicacion; } }
+
         public async void SaveCommandExecute()
         {
             var t = FicNavigationContextC[0] as zt_inventarios;
             try
             {
+                if(_CodigoBarra == null)
+                {
+                    await new Page().DisplayAlert("ALERTA", "¡SELECCIONE UN CODIGO DE BARRAS VALIDO!", "OK");
+                    _TxtCodigoBarras = "";
+                    RaisePropertyChanged("TxtCodigoBarras");
+                    return;
+                }
+                else if (_IdSKU == null)
+                {
+                    await new Page().DisplayAlert("ALERTA", "¡SELECCIONE UN SKU VALIDO!", "OK");
+                    _TxtSKU = "";
+                    RaisePropertyChanged("TxtSKU");
+                    return;
+                }
+                else if (_IdUnidadMedida == null)
+                {
+                    await new Page().DisplayAlert("ALERTA", "¡SELECCIONE UNA UNIDAD DE MEDIDA VALIDA!", "OK");
+                    _TxtUnidadMedida = "";
+                    RaisePropertyChanged("TxtUnidadMedida");
+                    return;
+                }
+                else if (_IdAlmacen == null)
+                {
+                    await new Page().DisplayAlert("ALERTA", "¡SELECCIONE UN ALMACEN VALIDO!", "OK");
+                    _TxtAlmacen = "";
+                    RaisePropertyChanged("TxtAlmacen");
+                    return;
+                }
+                else if (_IdUbicacion == null)
+                {
+                    await new Page().DisplayAlert("ALERTA", "¡SELECCIONE UNA UBICACION VALIDA!", "OK");
+                    _TxtUbicacion = "";
+                    RaisePropertyChanged("TxtUbicacion");
+                    return;
+                }
+
                 if (FicModo)
                 {
                     var FicSouceUpdate = FicNavigationContextC[1] as zt_inventarios_conteos;
@@ -411,7 +497,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
                         NumConteo = 0,
                         IdSKU = _IdSKU.IdSKU,
                         CodigoBarras = _CodigoBarra.CodigoBarras,
-                        IdUbicacion = _IdUbicacion,
+                        IdUbicacion = _IdUbicacion.IdUbicacion,
                         CantidadFisica = _CantidadFisica,
                         IdUnidadMedida = _IdUnidadMedida.IdUnidadMedida,
                         CantidadPZA = 0,

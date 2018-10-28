@@ -2,11 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:syn="clr-namespace:Syncfusion.SfPicker.XForms;assembly=Syncfusion.SfPicker.XForms"
              x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventarioAcumuladoList">
     <ContentPage.ToolbarItems>
         <ToolbarItem 
-            Name="Lista de Conteos"
+            Name="Lista Inventarios"
             Command="{Binding FicMetRegresarInventariosICommand}">
+        </ToolbarItem>
+        <ToolbarItem 
+            Name="Lista de Conteos"
+            Command="{Binding FicMetListaConteoICommand}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
@@ -19,21 +24,40 @@
                         PlaceholderColor="Red"
                         x:Name="FicSearchBar"/>
 
+            <StackLayout>
+                <Button Clicked="Button_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        Text="SELECCIONA UNA FILTRACION"/>
+                <syn:SfPicker
+                        HeaderText="SELECCIONA UNA FILTRACION"
+                        x:Name="FicPickerSKU"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        HeightRequest="200"
+                        SelectedIndex="0"
+                    SelectedItem="{Binding FicPickerFiltroSelected}"/>
+            </StackLayout>
+
+                <!--<syn:SfPicker x:Name="FicPickerSKU" HeaderText="SELECCIONA UNA FILTRACION" PickerMode="Dialog" PickerHeight="400" PickerWidth="300" />-->
+
             <syncfusion:SfDataGrid
+                        x:Name="FicGridAcuList"
                         VerticalOptions="FillAndExpand"
                         ColumnSizer="Star"
                         AutoGenerateColumns="False"
                         AllowSorting="False"
-                        ItemsSource= "{Binding FicSfDataGrid_ItemSource_Acomulado}"
-                        SelectedItem="{Binding FicSfDataGrid_SelectItem_Acomulado}"
+                        ItemsSource= "{Binding FicSfDataGrid_ItemSource_Acumulado}"
+                        SelectedItem="{Binding FicSfDataGrid_SelectItem_Acumulado}"
                         SelectionMode="Single"
                     >
                 <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Id Inventario" MappingName="IdInventario" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ID. INVENTARIO" MappingName="IdInventario" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="SKU" MappingName="IdSKU" />
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cantidad Teorica" MappingName="CantidadTeorica" />
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cantidad Fisica" MappingName="CantidadFisica" />
-                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Diferencia" MappingName="Diferencia" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="CANT. TEORICA" MappingName="CantidadTeorica" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="CANT. TEORICA CJA" MappingName="CantidadTeoricaCJA" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="CANT. FISICA" MappingName="CantidadFisica" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="DIFERENCIA" MappingName="Diferencia" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="UND. MEDIDA" MappingName="IdUnidadMedida" />
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </StackLayout>

@@ -17,6 +17,7 @@
     <PackageReference Include="Syncfusion.Xamarin.SfAutoComplete" Version="16.1.0.37" />
     <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="16.1.0.37" />
     <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="16.1.0.37" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="16.3.0.21" />
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
@@ -55,6 +56,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Navegacion\FicMasterPageMaster.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Seguridad\FicViLogin.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -53,6 +53,11 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
                 {
                     FicViewModel.FicMetLoadInfoTomaSKU();
                 };
+
+                FicAlm.ValueChanged += (object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e) =>
+                {
+                    FicViewModel.FicMetLoadInfoTomaAlmacenUbicacion();
+                };
             }
         }//SE EJECUTA CUANDO SE ABRE LA VIEW
 

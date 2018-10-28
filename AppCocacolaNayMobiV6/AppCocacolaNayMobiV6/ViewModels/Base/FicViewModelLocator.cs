@@ -3,6 +3,7 @@ using AppCocacolaNayMobiV6.Interfaces.Navegacion;
 using AppCocacolaNayMobiV6.Services.Inventarios;
 using AppCocacolaNayMobiV6.Services.Navegacion;
 using AppCocacolaNayMobiV6.ViewModels.Inventarios;
+using AppCocacolaNayMobiV6.ViewModels.Seguridad;
 using Autofac;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Base
             FicContainerBuilder.RegisterType<FicVmInventarioAcumuladoList>();
             FicContainerBuilder.RegisterType<FicVmImportarWebApi>();
             FicContainerBuilder.RegisterType<FicVmExportarWebApi>();
+            FicContainerBuilder.RegisterType<FicVmLogin>();
+
             //------------------------- INTERFACE SERVICES OF THE VIEW MODELS -----------------------------------
             //FIC: se procede a registrar la interface con la que se comunican las ViewModels con los Servicios 
             //para poder ejecutar las tareas (metodos o funciones, etc) del servicio en cuestion.
@@ -77,6 +80,11 @@ namespace AppCocacolaNayMobiV6.ViewModels.Base
         public FicVmExportarWebApi FicVmExportarWebApi
         {
             get { return FicIContainer.Resolve<FicVmExportarWebApi>(); }
+        }
+
+        public FicVmLogin FicVmLogin
+        {
+            get { return FicIContainer.Resolve<FicVmLogin>(); }
         }
 
     }//CLASS

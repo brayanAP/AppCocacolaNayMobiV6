@@ -1,6 +1,8 @@
 ﻿using AppCocacolaNayMobiV6.Interfaces.Navegacion;
 using AppCocacolaNayMobiV6.ViewModels.Inventarios;
+using AppCocacolaNayMobiV6.ViewModels.Seguridad;
 using AppCocacolaNayMobiV6.Views.Inventarios;
+using AppCocacolaNayMobiV6.Views.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +20,8 @@ namespace AppCocacolaNayMobiV6.Services.Navegacion
             { typeof(FicVmInventarioConteosItem),typeof(FicViInventarioConteosItem) },
             { typeof(FicVmInventarioAcumuladoList),typeof(FicViInventarioAcumuladoList)},
             {typeof(FicVmImportarWebApi), typeof(FicViImportarWebApi)},
-            {typeof(FicVmExportarWebApi), typeof(FicViExportarWebApi)}
+            {typeof(FicVmExportarWebApi), typeof(FicViExportarWebApi)},
+            {typeof(FicVmLogin), typeof(FicViLogin)}
         };
 
         #region METODOS DE IMPLEMENTACION DE LA INTERFACE -> IFicSrvNavigationInventario

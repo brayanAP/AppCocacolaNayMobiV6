@@ -58,6 +58,7 @@
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="ID" MappingName="IdInventario" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Num. Conteo" MappingName="NumConteo" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Almacen" MappingName="IdAlmacen" />
+                    <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Ubicacion" MappingName="IdUbicacion" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="SKU" MappingName="IdSKU" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cant. Fisica" MappingName="CantidadFisica" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Cant. PZA" MappingName="CantidadPZA" />

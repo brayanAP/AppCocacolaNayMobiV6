@@ -32,7 +32,6 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             {
                 if(FicSourceProductos != null)
                 {
-
                     foreach (string c in FicSourceProductos)
                     {
                         var FicSourceSuma = (from t in FicSourceConteos where t.IdSKU == c select t).ToList();
@@ -66,6 +65,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             else
                             {
                                 FicSourceAcumulados.CantidadFisica = FicSuma.First().SumaPZA;
+                                FicSourceAcumulados.Diferencia = FicSourceAcumulados.CantidadTeorica - FicSourceAcumulados.CantidadFisica;
                                 FicSourceAcumulados.FechaUltMod = DateTime.Now;
                                 FicSourceAcumulados.UsuarioMod = "BUAP";
                                // FicLoBDContext.Update(FicSourceAcumulados);

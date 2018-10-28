@@ -7,7 +7,7 @@ namespace AppCocacolaNayMobiV6.Interfaces.Seguridad
 {
    public interface IFicSrvPaginacion
    {
-        Task<bool> FicMetGetWebApiPaginas();
+        //Task<bool> FicMetGetWebApiPaginas();
 
    }//INTERFACE
 }//NAMESPACE

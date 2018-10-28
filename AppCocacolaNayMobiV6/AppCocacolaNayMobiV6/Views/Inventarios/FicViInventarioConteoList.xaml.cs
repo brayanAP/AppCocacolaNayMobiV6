@@ -28,7 +28,7 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
             var FicViewModel = BindingContext as FicVmInventarioConteoList;
             if (FicViewModel != null)
             {
-                FicViewModel.FicNavigationContextE = FicParameter;
+                FicViewModel.FicNavigationContextE = FicParameter as object[];
                 FicViewModel.OnAppearing();
             }
 

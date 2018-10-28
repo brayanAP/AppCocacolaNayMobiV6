@@ -32,7 +32,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             {
                 string url = "";
                 if (id != 0) url = "http://localhost:54068/api/inventarios/invacoconid" + "?id=" + id;
-                else url = "http://localhost:54068/api/inventarios/invacocon";
+                else url = "http://localhost:54068/api/inventarios/invacucon";
 
 
                 var response = await FiClient.GetAsync(url);
@@ -45,14 +45,15 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             }
         }//GET: A INVENTARIOS
 
-        private async Task<zt_catalogos_productos_medidas_cedi_almacenes> FicGetListCatalogosActualiza()
+        private async Task<temp_generales> FicGetListCatalogosActualiza()
         {
             const string url = "http://localhost:54068/api/inventarios/catalogos";
 
             try
             {
                 var response = await FiClient.GetAsync(url);
-                return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<zt_catalogos_productos_medidas_cedi_almacenes>(await response.Content.ReadAsStringAsync()) : null;
+                await new Page().DisplayAlert("ALERTA", response.ToString(), "OK");
+                return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<temp_generales>(await response.Content.ReadAsStringAsync()) : null;
             }
             catch (Exception e)
             {
@@ -66,7 +67,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             return await (from inv in FicLoBDContext.zt_inventarios where inv.IdInventario == id select inv).AsNoTracking().SingleOrDefaultAsync();
         }//buscar en local
 
-        private async Task<zt_inventarios_conteos> FicExistzt_inventarios_conteos(int idinv, int IdAlmacen, string codigob, int NumCont, string ubicacion)
+        private async Task<zt_inventarios_conteos> FicExistzt_inventarios_conteos(int idinv, string IdAlmacen, string codigob, int NumCont, string ubicacion)
         {
             return await (from con in FicLoBDContext.zt_inventarios_conteos where con.IdInventario == idinv && con.IdAlmacen ==IdAlmacen && con.IdSKU == codigob && con.NumConteo == NumCont && con.IdUbicacion == ubicacion select con).AsNoTracking().SingleOrDefaultAsync();
         }//buscar en local
@@ -79,6 +80,11 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
         private async Task<zt_cat_productos> FicExistzt_cat_productos(string sku)
         {
             return await (from acu in FicLoBDContext.zt_cat_productos where acu.IdSKU == sku select acu).AsNoTracking().SingleOrDefaultAsync();
+        }
+
+        private async Task<zt_cat_grupos_sku> FicExistzt_cat_grupos_sku(string sku)
+        {
+            return await (from acu in FicLoBDContext.zt_cat_grupos_sku where acu.IdGrupoSKU == sku select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
         private async Task<zt_cat_unidad_medidas> FicExistzt_cat_unidad_medidas(string id)
@@ -96,9 +102,24 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             return await (from acu in FicLoBDContext.zt_cat_cedis where acu.IdCEDI == id select acu).AsNoTracking().SingleOrDefaultAsync();
         }
 
-        private async Task<zt_cat_almacenes> FicExistzt_cat_almacenes(Int16 id)
+        private async Task<zt_cat_almacenes> FicExistzt_cat_almacenes(string id)
         {
             return await (from acu in FicLoBDContext.zt_cat_almacenes where acu.IdAlmacen == id select acu).SingleOrDefaultAsync();
+        }
+
+        private async Task<zt_cat_estatus> FicExistzt_cat_estatus(string id)
+        {
+            return await (from acu in FicLoBDContext.zt_cat_estatus where acu.IdEstatus == id select acu).SingleOrDefaultAsync();
+        }
+
+        private async Task<zt_cat_ubicaciones> FicExistzt_cat_ubicaciones(string id)
+        {
+            return await (from acu in FicLoBDContext.zt_cat_ubicaciones where acu.IdUbicacion == id select acu).SingleOrDefaultAsync();
+        }
+
+        private async Task<zt_almacenes_ubicaciones> FicExistzt_almacenes_ubicaciones(string ubi, string alm)
+        {
+            return await (from acu in FicLoBDContext.zt_almacenes_ubicaciones where acu.IdUbicacion == ubi && acu.IdAlmacen == alm select acu).SingleOrDefaultAsync();
         }
 
         public async Task<string> FicGetImportInventarios(int id=0)
@@ -123,7 +144,10 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 respuesta.IdInventario = inv.IdInventario;
+                                respuesta.IdInventarioSAP = inv.IdInventarioSAP;
                                 respuesta.IdCEDI = inv.IdCEDI;
+                                respuesta.IdAlmacen = inv.IdAlmacen;
+                                respuesta.IdEstatus = inv.IdEstatus;
                                 respuesta.FechaReg = inv.FechaReg;
                                 respuesta.UsuarioReg = inv.UsuarioReg;
                                 respuesta.FechaUltMod = inv.FechaUltMod;
@@ -215,6 +239,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                                 respuesta.IdInventario = inv.IdInventario;
                                 respuesta.IdSKU = inv.IdSKU;
                                 respuesta.CantidadTeorica = inv.CantidadTeorica;
+                                respuesta.CantidadTeoricaCJA = inv.CantidadTeoricaCJA;
                                 respuesta.CantidadFisica = inv.CantidadFisica;
                                 respuesta.Diferencia = inv.Diferencia;
                                 respuesta.IdUnidadMedida = inv.IdUnidadMedida;
@@ -263,26 +288,25 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                 FicMensaje = "IMPORTACION: \n";
                 var FicGetReultREST = await FicGetListCatalogosActualiza();
 
-                if (FicGetReultREST != null && FicGetReultREST.zt_cat_productos != null)
+                if (FicGetReultREST != null && FicGetReultREST.zt_cat_grupos_sku!= null)
                 {
-                    FicMensaje += "IMPORTANDO: zt_cat_productos \n";
-                    foreach (zt_cat_productos inv in FicGetReultREST.zt_cat_productos)
+                    FicMensaje += "IMPORTANDO: zt_cat_grupos_sku \n";
+                    foreach (zt_cat_grupos_sku inv in FicGetReultREST.zt_cat_grupos_sku)
                     {
-                        var respuesta = await FicExistzt_cat_productos(inv.IdSKU);
+                        var respuesta = await FicExistzt_cat_grupos_sku(inv.IdGrupoSKU);
                         if (respuesta != null)
                         {
                             try
                             {
-                                respuesta.IdSKU = inv.IdSKU;
-                                respuesta.CodigoBarras = inv.CodigoBarras;
-                                respuesta.DesSKU = inv.DesSKU;
+                                respuesta.IdGrupoSKU = inv.IdGrupoSKU;
+                                respuesta.DesGrupoSKU = inv.DesGrupoSKU;
                                 respuesta.FechaReg = inv.FechaReg;
                                 respuesta.UsuarioReg = inv.UsuarioReg;
                                 respuesta.FechaUltMod = inv.FechaUltMod;
                                 respuesta.UsuarioMod = inv.UsuarioMod;
                                 respuesta.Activo = inv.Activo;
                                 respuesta.Borrado = inv.Borrado;
-                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdSKU: " + inv.IdSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdGrupoSKU: " + inv.IdGrupoSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdGrupoSKU: " + inv.IdGrupoSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -294,7 +318,7 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             try
                             {
                                 FicLoBDContext.Add(inv);
-                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERTAR-> IdSKU: " + inv.IdSKU + " \n";
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdGrupoSKU: " + inv.IdGrupoSKU + " \n" : "-ERROR EN INSERTAR-> IdGrupoSKU: " + inv.IdGrupoSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -336,6 +360,50 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                             {
                                 FicLoBDContext.Add(inv);
                                 FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n" : "-ERROR EN INSERTAR-> IdUnidadMedida: " + inv.IdUnidadMedida + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                    }
+                }
+                else FicMensaje += "-> SIN DATOS. \n";
+
+                if (FicGetReultREST != null && FicGetReultREST.zt_cat_productos != null)
+                {
+                    FicMensaje += "IMPORTANDO: zt_cat_productos \n";
+                    foreach (zt_cat_productos inv in FicGetReultREST.zt_cat_productos)
+                    {
+                        var respuesta = await FicExistzt_cat_productos(inv.IdSKU);
+                        if (respuesta != null)
+                        {
+                            try
+                            {
+                                respuesta.IdSKU = inv.IdSKU;
+                                respuesta.IdGrupoSKU = inv.IdGrupoSKU;
+                                respuesta.IdUMedidaBase = inv.IdUMedidaBase;
+                                respuesta.CodigoBarras = inv.CodigoBarras;
+                                respuesta.DesSKU = inv.DesSKU;
+                                respuesta.FechaReg = inv.FechaReg;
+                                respuesta.UsuarioReg = inv.UsuarioReg;
+                                respuesta.FechaUltMod = inv.FechaUltMod;
+                                respuesta.UsuarioMod = inv.UsuarioMod;
+                                respuesta.Activo = inv.Activo;
+                                respuesta.Borrado = inv.Borrado;
+                                FicMensaje +=  await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdSKU: " + inv.IdSKU + " \n" : "-NO NECESITO ACTUALIZAR-> IdSKU: " + inv.IdSKU + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                FicLoBDContext.Add(inv);
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdSKU: " + inv.IdSKU + " \n" : "-ERROR EN INSERTAR-> IdSKU: " + inv.IdSKU + " \n";
                             }
                             catch (Exception e)
                             {
@@ -471,6 +539,123 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
                     }
                 }
                 else FicMensaje += "-> SIN DATOS. \n";
+
+                if (FicGetReultREST != null && FicGetReultREST.zt_cat_ubicaciones != null)
+                {
+                    FicMensaje += "IMPORTANDO: zt_cat_ubicaciones \n";
+                    foreach (zt_cat_ubicaciones inv in FicGetReultREST.zt_cat_ubicaciones)
+                    {
+                        var respuesta = await FicExistzt_cat_ubicaciones(inv.IdUbicacion);
+                        if (respuesta != null)
+                        {
+                            try
+                            {
+                                respuesta.IdUbicacion = inv.IdUbicacion;
+                                respuesta.DesUbicacion = inv.DesUbicacion;
+                                respuesta.FechaReg = inv.FechaReg;
+                                respuesta.UsuarioReg = inv.UsuarioReg;
+                                respuesta.FechaUltMod = inv.FechaUltMod;
+                                respuesta.UsuarioMod = inv.UsuarioMod;
+                                respuesta.Activo = inv.Activo;
+                                respuesta.Borrado = inv.Borrado;
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdUbicacion: " + inv.IdUbicacion + " \n" : "-NO NECESITO ACTUALIZAR-> IdUbicacion: " + inv.IdUbicacion + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                FicLoBDContext.Add(inv);
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUbicacion: " + inv.IdUbicacion + " \n" : "-ERROR EN INSERTAR-> IdUbicacion: " + inv.IdUbicacion + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                    }
+                }
+                else FicMensaje += "-> SIN DATOS. \n";
+
+                if (FicGetReultREST != null && FicGetReultREST.zt_cat_ubicaciones != null)
+                {
+                    FicMensaje += "IMPORTANDO: zt_almacenes_ubicaciones \n";
+                    foreach (zt_almacenes_ubicaciones inv in FicGetReultREST.zt_almacenes_ubicaciones)
+                    {
+                        var respuesta = await FicExistzt_almacenes_ubicaciones(inv.IdUbicacion,inv.IdAlmacen);
+                        if (respuesta != null)
+                        {
+                            try
+                            {
+                                respuesta.IdAlmacen = inv.IdAlmacen;
+                                respuesta.IdUbicacion = inv.IdUbicacion;
+                                respuesta.FechaReg = inv.FechaReg;
+                                respuesta.UsuarioReg = inv.UsuarioReg;
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdUbicacion: " + inv.IdUbicacion + ",IdAlmacen : " + inv.IdAlmacen + " \n" : "-NO NECESITO ACTUALIZAR-> IdUbicacion: " + inv.IdUbicacion + ",IdAlmacen : " + inv.IdAlmacen + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                FicLoBDContext.Add(inv);
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdUbicacion: " + inv.IdUbicacion + ",IdAlmacen : " + inv.IdAlmacen + " \n" : "-ERROR EN INSERTAR-> IdUbicacion: " + inv.IdUbicacion + ",IdAlmacen : " + inv.IdAlmacen + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                    }
+                }
+                else FicMensaje += "-> SIN DATOS. \n";
+
+                if (FicGetReultREST != null && FicGetReultREST.zt_cat_estatus != null)
+                {
+                    FicMensaje += "IMPORTANDO: zt_cat_estatus \n";
+                    foreach (zt_cat_estatus inv in FicGetReultREST.zt_cat_estatus)
+                    {
+                        var respuesta = await FicExistzt_cat_estatus(inv.IdEstatus);
+                        if (respuesta != null)
+                        {
+                            try
+                            {
+                                respuesta.IdEstatus = inv.IdEstatus;
+                                respuesta.DesEstatus = inv.DesEstatus;
+                                respuesta.FechaReg = inv.FechaReg;
+                                respuesta.UsuarioReg = inv.UsuarioReg;
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-UPDATE-> IdEstatus: " + inv.IdEstatus + " \n" : "-NO NECESITO ACTUALIZAR-> IdEstatus: " + inv.IdEstatus + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                FicLoBDContext.Add(inv);
+                                FicMensaje += await FicLoBDContext.SaveChangesAsync() > 0 ? "-INSERT-> IdEstatus: " + inv.IdEstatus + " \n" : "-ERROR EN INSERTAR-> IdEstatus: " + inv.IdEstatus + " \n";
+                            }
+                            catch (Exception e)
+                            {
+                                FicMensaje += "-ALERTA-> " + e.Message.ToString() + " \n";
+                            }
+                        }
+                    }
+                }
+                else FicMensaje += "-> SIN DATOS. \n";
+
+
             }
             catch (Exception e)
             {

@@ -35,7 +35,7 @@
 
                 <Label Text="Codigo de barras" />
                 <!--<syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAutoCompleteCodigoBarra"  DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}" HorizontalOptions="Start"/>-->
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicCodigoBarras" DisplayMemberPath="CodigoBarras" DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}">
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicCodigoBarras" DisplayMemberPath="CodigoBarras" DataSource="{Binding FicSourceAutoCompleteCodigoBarras}" SelectedItem="{Binding CodigoBarra}" Text="{Binding TxtCodigoBarras}">
                     <syncfusion:SfAutoComplete.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
@@ -49,7 +49,7 @@
 
                 <Label Text="SKU"/>
                 <!--<syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" />-->
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicSKU" DisplayMemberPath="IdSKU" DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}">
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicSKU" DisplayMemberPath="IdSKU" DataSource="{Binding FicSourceAutoCompleteIdSKU}" SelectedItem="{Binding IdSKU}" Text="{Binding TxtSKU}">
                     <syncfusion:SfAutoComplete.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
@@ -68,7 +68,7 @@
 
                 <Label Text="Unidad medida"/>
                 <!--<syncfusion:SfAutoComplete HeightRequest="40"  DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}"/>-->
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicUnm" DisplayMemberPath="DesUMedida" DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}">
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicUnm" DisplayMemberPath="DesUMedida" DataSource="{Binding FicSourceAutoCompleteIdUnidadMedida}" SelectedItem="{Binding IdUnidadMedida}" Text="{Binding TxtUnidadMedida}">
                     <syncfusion:SfAutoComplete.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
@@ -79,12 +79,9 @@
                     </syncfusion:SfAutoComplete.ItemTemplate>
                 </syncfusion:SfAutoComplete>
 
-                <Label Text="Ubicacion" />
-                <Entry Text="{Binding IdUbicacion}" x:Name="FicUb"/>
-
                 <Label Text="Almacen" />
                 <!--<syncfusion:SfAutoComplete HeightRequest="40" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}"/>-->
-                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAlm" DisplayMemberPath="DesAlmacen" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}">
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicAlm" DisplayMemberPath="DesAlmacen" SelectedItem="{Binding IdAlmacen}" DataSource="{Binding FicSourceAutoCompleteIdAlmacen}" Text="{Binding TxtAlmacen}">
                     <syncfusion:SfAutoComplete.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
@@ -95,6 +92,18 @@
                     </syncfusion:SfAutoComplete.ItemTemplate>
                 </syncfusion:SfAutoComplete>
 
+                <Label Text="Ubicacion" />
+                <syncfusion:SfAutoComplete HeightRequest="40" x:Name="FicUb" DisplayMemberPath="DesUbicacion" DataSource="{Binding FicSourceAutoCompleteIdUbicacion}" SelectedItem="{Binding IdUbicacion}" Text="{Binding TxtUbicacion}">
+                    <syncfusion:SfAutoComplete.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="{Binding DesUbicacion}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfAutoComplete.ItemTemplate>
+                </syncfusion:SfAutoComplete>
+                
                 <Label Text="Lote" />
                 <Entry Text="{Binding Lote}"/>
 
