@@ -22,10 +22,12 @@ namespace AppCocacolaNayMobiV6
 
             /*MANDAMOS NUESTRO MAESTRO DETALLE COMO MAINPAGE*/
             MainPage = new Views.Navegacion.FicMasterPage();
+            //Mzg0NjdAMzEzNjJlMzMyZTMwQWRwWFRqcFRTQ3l6V2FHcXFxY0ZUVE5mSlBjd3M1L2pKbE4xelBudmRGbz0=
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mzg0NjdAMzEzNjJlMzMyZTMwQWRwWFRqcFRTQ3l6V2FHcXFxY0ZUVE5mSlBjd3M1L2pKbE4xelBudmRGbz0=");
         }//CONSTRUCTOR
 
         #region METODOS DE LA CLASE
-            protected override void OnStart()
+        protected override void OnStart()
             {
                 // Handle when your app starts
             }

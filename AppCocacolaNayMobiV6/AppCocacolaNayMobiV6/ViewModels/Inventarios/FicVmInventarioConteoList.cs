@@ -138,7 +138,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             {
                 if(_FicSfDataGrid_SelectItem_Conteo != null)
                 {
-                    object[] TempContext = { FicNavigationContextE[0], _FicSfDataGrid_SelectItem_Conteo };
+                    object[] TempContext = { FicNavigationContextE[0], _FicSfDataGrid_SelectItem_Conteo, "EDITAR" };
 
                     IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteosItem>(TempContext);
                 }

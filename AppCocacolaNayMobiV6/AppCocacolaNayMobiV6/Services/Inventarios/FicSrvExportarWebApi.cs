@@ -39,13 +39,51 @@ namespace AppCocacolaNayMobiV6.Services.Inventarios
             return await response.Content.ReadAsStringAsync();
         }//POST: A INVENTARIOS
 
-        public async Task<string> FicPostExportInventarios()
+        public async Task<string> FicPostExportInventarios(int idInv)
         {
+            string FicMensaje = "ERROR: \n";
+            int id;
+            List<int> inv = new List<int>();
+
+            foreach (zt_inventarios_acumulados a in await (from a in FicLoBDContext.zt_inventarios_acumulados select a).ToListAsync())
+            {
+                id = a.IdInventario;
+
+                if(a.CantidadFisica == null && id!= 0)
+                {
+                    if(!inv.Contains(id))
+                    {
+                        FicMensaje += "-IMPOSIBLE EXPORTAR EL INVENTARIO " + a.IdInventario + ": \n";
+                        var sku = await (from b in FicLoBDContext.zt_inventarios_acumulados where b.IdInventario == id select b).ToListAsync();
+
+                        if (sku != null && sku.Count != 0) foreach (zt_inventarios_acumulados c in sku) FicMensaje += "    *-> SKU: " + c.IdSKU + "\n";
+                    }
+
+                    id = 0;
+                    inv.Add(a.IdInventario);
+                }
+            }
+
+            if (FicMensaje != "ERROR: \n")
+            {
+                await new Page().DisplayAlert("ALERTA", "IMPOSIBLE EXPORTAR.", "OK");
+                return FicMensaje;
+            }
+
+            if(idInv == 0)
+                return await FicPostListInventarios(new zt_inventatios_acumulados_conteos()
+                {
+                    zt_inventarios = await (from a in FicLoBDContext.zt_inventarios select a).AsNoTracking().ToListAsync(),
+                    zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados select a).AsNoTracking().ToListAsync(),
+                    zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos select a).AsNoTracking().ToListAsync()
+                });
+ 
+
             return await FicPostListInventarios(new zt_inventatios_acumulados_conteos()
             {
-                zt_inventarios = await (from a in FicLoBDContext.zt_inventarios select a).AsNoTracking().ToListAsync(),
-                zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados select a).AsNoTracking().ToListAsync(),
-                zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos select a).AsNoTracking().ToListAsync()
+                zt_inventarios = await (from a in FicLoBDContext.zt_inventarios where a.IdInventario == idInv select a).AsNoTracking().ToListAsync(),
+                zt_inventarios_acumulados = await (from a in FicLoBDContext.zt_inventarios_acumulados where a.IdInventario == idInv select a).AsNoTracking().ToListAsync(),
+                zt_inventarios_conteos = await (from a in FicLoBDContext.zt_inventarios_conteos where a.IdInventario == idInv select a).AsNoTracking().ToListAsync()
             });
         }//METODO DE EXPORT INVENTARIOS
 

@@ -45,7 +45,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         }
 
         public ObservableCollection<zt_inventarios_acumulados> FicSfDataGrid_ItemSource_Acumulado { get { return _FicSfDataGrid_ItemSource_Acumulado; } }
-        private ICommand _FicMetListaConteoICommand;
+        private ICommand _FicMetListaConteoICommand, _DoubleTappedCommandAction;
+
 
         private IFicSrvInventarioAcumuladoList IFicSrvInventarioAcumuladoList;
         private IFicSrvNavigationInventario IFicSrvNavigationInventario;
@@ -55,6 +56,37 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             this.IFicSrvNavigationInventario = IFicSrvNavigationInventario;
             this.IFicSrvInventarioAcumuladoList = IFicSrvInventarioAcumuladoList;
         }//CONSTRUCTOR
+
+        public ICommand DoubleTappedCommandAction
+        {
+            get
+            {
+                return _DoubleTappedCommandAction = _DoubleTappedCommandAction ??
+                      new FicVmDelegateCommand(FicMetDoubleTapped);
+            }
+        }//ESTE VENTO AGREGA EL COMANDO AL BOTON EN LA VIEW
+
+
+        private async void FicMetDoubleTapped()
+        {
+            try
+            {
+               
+                if(_FicSfDataGrid_SelectItem_Acumulado != null)
+                {
+                    object[] temp = { FicNavigationContext, new zt_inventarios_conteos() {
+                        IdSKU = _FicSfDataGrid_SelectItem_Acumulado.IdSKU,
+                        IdAlmacen = (FicNavigationContext as zt_inventarios).IdAlmacen,
+
+                    },"NUEVO"};
+                    IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteosItem>(temp);
+                }
+            }
+            catch (Exception e)
+            {
+                await new Page().DisplayAlert("ALERTA", e.Message.ToString(), "OK");
+            }
+        }
 
         public ICommand FicMetListaConteoICommand
         {
@@ -70,7 +102,7 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         {
             try
             {
-                if(_FicSfDataGrid_SelectItem_Acumulado == null)
+                if (_FicSfDataGrid_SelectItem_Acumulado == null)
                 {
                     await new Page().DisplayAlert("ALERTA", "SELECCIONE UN ACUMULADO.", "OK");
                     return;

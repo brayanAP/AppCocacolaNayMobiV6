@@ -5,6 +5,10 @@
     <ContentPage.Content>
         <ScrollView >
             <StackLayout Padding="10" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Entry Text="{Binding FicLabelIdInv}"/>
+                    <Button Text="EXP. CATALOGO INV."  Command="{Binding FicMetExpoIdInvIdRange}"/>
+                </StackLayout>
                 <StackLayout Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="LightGray">
                     <Label Text="{Binding FicTextAreaExpInv}" FontAttributes="Bold"/>
                 </StackLayout>

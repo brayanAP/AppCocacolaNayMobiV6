@@ -7,6 +7,6 @@ namespace AppCocacolaNayMobiV6.Interfaces.Inventarios
 {
     public interface IFicSrvExportarWebApi
     {
-        Task<string> FicPostExportInventarios();
+        Task<string> FicPostExportInventarios(int idInv);
     }//INTERFACE
 }//NAMESPACE

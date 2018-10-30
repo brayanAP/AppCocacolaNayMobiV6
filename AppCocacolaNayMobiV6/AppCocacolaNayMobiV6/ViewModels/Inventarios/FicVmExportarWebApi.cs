@@ -13,8 +13,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
 {
     public class FicVmExportarWebApi : INotifyPropertyChanged
     {
-        private string _FicTextAreaExpInv;
-        private ICommand _FicMetExpoInv;
+        private string _FicTextAreaExpInv, _FicLabelIdInv;
+        private ICommand _FicMetExpoInv, _FicMetExpoIdInvIdRange;
 
         private IFicSrvNavigationInventario IFicSrvNavigationInventario;
         private IFicSrvExportarWebApi IFicSrvExportarWebApi;
@@ -30,6 +30,18 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
             get { return _FicTextAreaExpInv; }
         }
 
+        public string FicLabelIdInv
+        {
+            get { return _FicLabelIdInv; }
+            set
+            {
+                if(value != null)
+                {
+                    _FicLabelIdInv = value;
+                    RaisePropertyChanged("FicLabelIdInv");
+                }
+            }
+        }
         public async void OnAppearing()
         {
 
@@ -48,7 +60,30 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         {
             try
             {
-                _FicTextAreaExpInv = await IFicSrvExportarWebApi.FicPostExportInventarios();
+                _FicTextAreaExpInv = await IFicSrvExportarWebApi.FicPostExportInventarios(0);
+                RaisePropertyChanged("FicTextAreaExpInv");
+                await new Page().DisplayAlert("ALERTA", "Datos Actualizados.", "OK");
+            }
+            catch (Exception e)
+            {
+                await new Page().DisplayAlert("ALERTA", e.Message.ToString(), "OK");
+            }
+        }
+
+        public ICommand FicMetExpoIdInvIdRange
+        {
+            get
+            {
+                return _FicMetExpoIdInvIdRange = _FicMetExpoIdInvIdRange ??
+                      new FicVmDelegateCommand(FicMetExportInventarioId);
+            }
+        }//ESTE VENTO AGREGA EL COMANDO AL BOTON EN LA VIEW
+
+        private async void FicMetExportInventarioId()
+        {
+            try
+            {
+                _FicTextAreaExpInv = await IFicSrvExportarWebApi.FicPostExportInventarios(int.Parse(_FicLabelIdInv));
                 RaisePropertyChanged("FicTextAreaExpInv");
                 await new Page().DisplayAlert("ALERTA", "Datos Actualizados.", "OK");
             }

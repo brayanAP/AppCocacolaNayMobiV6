@@ -246,8 +246,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
 
                 #region LLENADO DEL CUERPO EN CASO QUE SEA MODO UPDATE
                 /*EN ESTA VARIABLE TOMAMOS EL VALOR ZT_INVENTARIOS_CONTEOS QUE TOMAMOS DE LA VIEW LIST*/
-                if (FicModo)
-                {
+                //if (FicModo)
+                //{
                     var FicSourceZt_inventarios_conteo = FicNavigationContextC[1] as zt_inventarios_conteos;
                     if (FicSourceZt_inventarios_conteo != null)
                     {
@@ -271,7 +271,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
                         RaisePropertyChanged("IdUnidadMedida");
                         RaisePropertyChanged("CantidadFisica");
                         RaisePropertyChanged("Lote");
-                    }
+                    FicModo = false;
+                    //}
                 }//ESTA EN MODO UPDATE?
 
                 #endregion
@@ -386,7 +387,8 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         {
             try
             {
-                IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteoList>(FicNavigationContextC[0]);
+                object[] temp = { FicNavigationContextC[0] ,null};
+                IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteoList>(temp);
             }
             catch (Exception e)
             {

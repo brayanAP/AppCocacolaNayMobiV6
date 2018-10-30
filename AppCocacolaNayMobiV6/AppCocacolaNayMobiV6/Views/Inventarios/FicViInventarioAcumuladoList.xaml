@@ -5,7 +5,7 @@
              xmlns:syn="clr-namespace:Syncfusion.SfPicker.XForms;assembly=Syncfusion.SfPicker.XForms"
              x:Class="AppCocacolaNayMobiV6.Views.Inventarios.FicViInventarioAcumuladoList">
     <ContentPage.ToolbarItems>
-        <ToolbarItem 
+        <ToolbarItem
             Name="Lista Inventarios"
             Command="{Binding FicMetRegresarInventariosICommand}">
         </ToolbarItem>
@@ -39,9 +39,10 @@
             </StackLayout>
 
                 <!--<syn:SfPicker x:Name="FicPickerSKU" HeaderText="SELECCIONA UNA FILTRACION" PickerMode="Dialog" PickerHeight="400" PickerWidth="300" />-->
-
+            <!--GridDoubleTappedCommand="{Binding DoubleTappedCommandAction}"-->
             <syncfusion:SfDataGrid
                         x:Name="FicGridAcuList"
+                        GridDoubleTappedCommand="{Binding DoubleTappedCommandAction}"
                         VerticalOptions="FillAndExpand"
                         ColumnSizer="Star"
                         AutoGenerateColumns="False"

@@ -43,6 +43,7 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
                 FicViewModel.FicMetFiltroSKU();
             };
 
+            
             FicGridAcuList.QueryCellStyle += DataGrid_QueryCellStyle;
         }//SE EJECUTA CUANDO SE ABRE LA VIEW
         
@@ -81,7 +82,12 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
                 }
             }
         }
-
+        //private void DataGrid_GridDoubleTapped(object sender, GridDoubleTappedEventsArgs e)
+        //{
+        //    var rowIndex = e.RowColumnIndex.RowIndex;
+        //    var rowData = e.RowData;
+        //    var columnIndex = e.RowColumnIndex.ColumnIndex;
+        //}
 
     }//CLASS
 }//NAMESPACE

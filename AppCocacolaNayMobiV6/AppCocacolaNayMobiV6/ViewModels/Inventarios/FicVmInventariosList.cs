@@ -67,8 +67,9 @@ namespace AppCocacolaNayMobiV6.ViewModels.Inventarios
         {
             if (_FicSfDataGrid_SelectItem_Inventario != null)
             {
+                object[] temp = { _FicSfDataGrid_SelectItem_Inventario, null };
                 IFicSrvNavigationInventario.FicMetNavigateTo<FicVmInventarioConteoList>
-                    (_FicSfDataGrid_SelectItem_Inventario);
+                    (temp);
             }
         }
 

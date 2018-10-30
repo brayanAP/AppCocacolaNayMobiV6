@@ -32,8 +32,8 @@ namespace AppCocacolaNayMobiV6.Views.Inventarios
             if (FicViewModel != null)
             {
                 FicViewModel.FicNavigationContextC = FicCuerpoNavigationContext;
-
-                if (FicCuerpoNavigationContext[1] != null) {
+   
+                if (FicCuerpoNavigationContext[1] != null && (FicCuerpoNavigationContext[2] as string) == "EDITAR") {
                     FicViewModel.FicModo = true;
                     FicCodigoBarras.IsEnabled = false;
                     FicSKU.IsEnabled = false;
