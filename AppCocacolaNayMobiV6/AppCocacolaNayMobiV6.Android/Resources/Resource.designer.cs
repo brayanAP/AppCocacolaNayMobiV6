@@ -201,6 +201,8 @@ namespace AppCocacolaNayMobiV6.Droid
 			global::Com.Syncfusion.SfPicker.Resource.Styleable.SfPicker_pickerUnselectedItemTextColor = global::AppCocacolaNayMobiV6.Droid.Resource.Styleable.SfPicker_pickerUnselectedItemTextColor;
 			global::Com.Syncfusion.SfPicker.Resource.Styleable.SfPicker_pickerUnselectedItemTextSize = global::AppCocacolaNayMobiV6.Droid.Resource.Styleable.SfPicker_pickerUnselectedItemTextSize;
 			global::Com.Syncfusion.SfPicker.Resource.Styleable.SfPicker_pickerWidth = global::AppCocacolaNayMobiV6.Droid.Resource.Styleable.SfPicker_pickerWidth;
+			global::UniversalBeacon.Library.Resource.String.ApplicationName = global::AppCocacolaNayMobiV6.Droid.Resource.String.ApplicationName;
+			global::UniversalBeacon.Library.Resource.String.Hello = global::AppCocacolaNayMobiV6.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AppCocacolaNayMobiV6.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -4332,6 +4334,12 @@ namespace AppCocacolaNayMobiV6.Droid
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f0a003d
+			public const int ApplicationName = 2131361853;
+			
+			// aapt resource value: 0x7f0a003c
+			public const int Hello = 2131361852;
+			
 			// aapt resource value: 0x7f0a0015
 			public const int abc_action_bar_home_description = 2131361813;
 			
@@ -4425,23 +4433,23 @@ namespace AppCocacolaNayMobiV6.Droid
 			// aapt resource value: 0x7f0a0034
 			public const int bottom_sheet_behavior = 2131361844;
 			
-			// aapt resource value: 0x7f0a003e
-			public const int cancel_drop = 2131361854;
+			// aapt resource value: 0x7f0a0040
+			public const int cancel_drop = 2131361856;
 			
 			// aapt resource value: 0x7f0a0035
 			public const int character_counter_pattern = 2131361845;
 			
+			// aapt resource value: 0x7f0a0041
+			public const int drop_above = 2131361857;
+			
+			// aapt resource value: 0x7f0a0042
+			public const int drop_below = 2131361858;
+			
+			// aapt resource value: 0x7f0a003e
+			public const int library_name = 2131361854;
+			
 			// aapt resource value: 0x7f0a003f
-			public const int drop_above = 2131361855;
-			
-			// aapt resource value: 0x7f0a0040
-			public const int drop_below = 2131361856;
-			
-			// aapt resource value: 0x7f0a003c
-			public const int library_name = 2131361852;
-			
-			// aapt resource value: 0x7f0a003d
-			public const int load_more_items = 2131361853;
+			public const int load_more_items = 2131361855;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int mr_button_content_description = 2131361792;

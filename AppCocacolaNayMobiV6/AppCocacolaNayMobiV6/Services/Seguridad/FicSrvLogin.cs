@@ -52,11 +52,6 @@ namespace AppCocacolaNayMobiV6.Services.Seguridad
             }
         }//Encriptar
 
-        public Task<string> FicMetLoginUser(string user, string password)
-        {
-            throw new NotImplementedException();
-        }
-
         private string FicMetDesencripta(string textoEncriptado)
         {
             try
@@ -102,69 +97,69 @@ namespace AppCocacolaNayMobiV6.Services.Seguridad
                 }
         }//ESTE METODO HACE LA PETICION A LA WEB API
 
-        //public async Task<string> FicMetLoginUser(string user, string password)
-        //{
-        //    try
-        //    {
-        //        if (CrossConnectivity.Current.IsConnected)
-        //        {
-        //            var FicSourceWebApiLogin = await FicMetGetWebApiLogin(user, password, true);
+        public async Task<string> FicMetLoginUser(string user, string password)
+        {
+            try
+            {
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    var FicSourceWebApiLogin = await FicMetGetWebApiLogin(user, password, true);
 
-        //            if(FicSourceWebApiLogin != null)
-        //            {
-        //                /*importar a local*/
-        //            }
-        //        }//ACTUALIZAR EN LOCAL
+                    if (FicSourceWebApiLogin != null)
+                    {
+                        /*importar a local*/
+                    }
+                }//ACTUALIZAR EN LOCAL
 
-        //        var FicSourceLocalUser = await (
-        //            from u in FicLoBDContext.cat_usuarios
-        //            join c in FicLoBDContext.seg_expira_claves on u.IdUsuario equals c.IdUsuario
-        //            join e in FicLoBDContext.seg_usuarios_estatus on u.IdUsuario equals e.IdUsuario
-        //            where (u.Usuario == user && u.Expira == "N" && u.Activo == "S") &&
-        //                  (c.Actual == "S" && ((DateTime.Now.Date >= c.FechaExpiraIni.Value.Date) && (DateTime.Now.Date <= c.FechaExpiraFin.Value.Date))) &&
-        //                  (e.IdTipoEstatus == 1 && e.IdEstatus == 1)
-        //            select new { u, c , e}).SingleOrDefaultAsync();
+                var FicSourceLocalUser = await (
+                    from u in FicLoBDContext.cat_usuarios
+                    join c in FicLoBDContext.seg_expira_claves on u.IdUsuario equals c.IdUsuario
+                    join e in FicLoBDContext.seg_usuarios_estatus on u.IdUsuario equals e.IdUsuario
+                    where (u.Usuario == user && u.Expira == "N" && u.Activo == "S") &&
+                          (c.Actual == "S" && ((DateTime.Now.Date >= c.FechaExpiraIni.Value.Date) && (DateTime.Now.Date <= c.FechaExpiraFin.Value.Date))) &&
+                          (e.IdTipoEstatus == 1 && e.IdEstatus == 1)
+                    select new { u, c, e }).SingleOrDefaultAsync();
 
-        //        if(FicSourceLocalUser == null || (FicSourceLocalUser.u == null || FicSourceLocalUser.c == null || FicSourceLocalUser.e == null))
-        //        {
-        //            if(FicSourceLocalUser.u == null)
-        //            {
-        //                var FicBuscaUsuario = await (from u in FicLoBDContext.cat_usuarios where u.Usuario == user select u).SingleOrDefaultAsync();
+                if (FicSourceLocalUser == null || (FicSourceLocalUser.u == null || FicSourceLocalUser.c == null || FicSourceLocalUser.e == null))
+                {
+                    if (FicSourceLocalUser.u == null)
+                    {
+                        var FicBuscaUsuario = await (from u in FicLoBDContext.cat_usuarios where u.Usuario == user select u).SingleOrDefaultAsync();
 
-        //                if (FicBuscaUsuario == null) return "Usuario Invalido.";
-        //            }
+                        if (FicBuscaUsuario == null) return "Usuario Invalido.";
+                    }
 
-        //            if (FicSourceLocalUser.c == null)
-        //            {
-        //                var FicBuscaClave = await (from c in FicLoBDContext.seg_expira_claves where (c.Clave == password && c.Actual == "S") select c).SingleOrDefaultAsync();
+                    if (FicSourceLocalUser.c == null)
+                    {
+                        var FicBuscaClave = await (from c in FicLoBDContext.seg_expira_claves where (c.Clave == password && c.Actual == "S") select c).SingleOrDefaultAsync();
 
-        //                if (FicBuscaClave == null) return "Contraseña Invalida";
-        //                else if (!((DateTime.Now.Date >= FicBuscaClave.FechaExpiraIni.Value.Date) && (DateTime.Now.Date <= FicBuscaClave.FechaExpiraFin.Value.Date))) return "Clave Expirada.";
-        //            }
+                        if (FicBuscaClave == null) return "Contraseña Invalida";
+                        else if (!((DateTime.Now.Date >= FicBuscaClave.FechaExpiraIni.Value.Date) && (DateTime.Now.Date <= FicBuscaClave.FechaExpiraFin.Value.Date))) return "Clave Expirada.";
+                    }
 
-        //            if(FicSourceLocalUser.e == null)
-        //            {
-        //                var FicBuscaUsuario = await (from u in FicLoBDContext.cat_usuarios where u.Usuario == user select u).SingleOrDefaultAsync();
-        //                var FicBuscaEstatus = await (from e in FicLoBDContext.seg_usuarios_estatus
-        //                                         join t in FicLoBDContext.cat_tipos_estatus on e.IdTipoEstatus equals t.IdTipoEstatus
-        //                                         join es in FicLoBDContext.cat_estatus on e.IdEstatus equals es.IdEstatus
-        //                                         where e.IdUsuario == FicBuscaUsuario.IdUsuario 
-        //                                         select es).SingleOrDefaultAsync();
+                    if (FicSourceLocalUser.e == null)
+                    {
+                        var FicBuscaUsuario = await (from u in FicLoBDContext.cat_usuarios where u.Usuario == user select u).SingleOrDefaultAsync();
+                        var FicBuscaEstatus = await (from e in FicLoBDContext.seg_usuarios_estatus
+                                                     join t in FicLoBDContext.cat_tipos_estatus on e.IdTipoEstatus equals t.IdTipoEstatus
+                                                     join es in FicLoBDContext.cat_estatus on e.IdEstatus equals es.IdEstatus
+                                                     where e.IdUsuario == FicBuscaUsuario.IdUsuario
+                                                     select es).SingleOrDefaultAsync();
 
-        //                if (FicBuscaEstatus == null) return "Estatus del usuario no encontrado.";
-        //                else if (FicBuscaEstatus.IdEstatus != 1 && FicBuscaEstatus.IdTipoEstatus != 1) return FicBuscaEstatus.DesEstatus;
-        //            }
+                        if (FicBuscaEstatus == null) return "Estatus del usuario no encontrado.";
+                        else if (FicBuscaEstatus.IdEstatus != 1 && FicBuscaEstatus.IdTipoEstatus != 1) return FicBuscaEstatus.DesEstatus;
+                    }
 
-        //            return "Ocurrió algo inesperado.";
-        //        }//BUSCAR POR QUE EL USUARIO NO FUE ENCONTRADO
+                    return "Ocurrió algo inesperado.";
+                }//BUSCAR POR QUE EL USUARIO NO FUE ENCONTRADO
 
-        //        return (FicSourceLocalUser.u.Usuario == user && FicMetDesencripta(FicSourceLocalUser.c.Clave) == password) ? "OK" : "Ocurrió algo inesperado.";
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        return e.Message.ToString();
-        //    }
-        //}//INICIAR SESION POR USUER
+                return (FicSourceLocalUser.u.Usuario == user && FicMetDesencripta(FicSourceLocalUser.c.Clave) == password) ? "OK" : "Ocurrió algo inesperado.";
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+        }//INICIAR SESION POR USUER
 
 
     }//CLASS

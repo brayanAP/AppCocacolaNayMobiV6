@@ -52,6 +52,7 @@
                         ItemsSource= "{Binding FicSfDataGrid_ItemSource_Conteo}"
                         SelectedItem="{Binding FicSfDataGrid_SelectItem_Conteo}"
                         SelectionMode="Single"
+                AllowSwiping="True"
                         x:Name="FicSfDataGridConteos"
                     >
                 <syncfusion:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
@@ -65,6 +66,42 @@
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Unidad Medida" MappingName="IdUnidadMedida" />
                     <syncfusion:GridTextColumn HeaderFontAttribute="Bold" HeaderText="Usuario" MappingName="UsuarioReg" />
                 </syncfusion:SfDataGrid.Columns>
+
+                <!--<syncfusion:SfDataGrid.LeftSwipeTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="#009EDA" Padding="9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"
+                               BackgroundColor="Transparent"
+                          
+                               HorizontalOptions="CenterAndExpand"
+                               Source="EditIcon.png"/>
+
+                            <Label Grid.Column="1"
+                               BackgroundColor="Transparent"
+                               LineBreakMode="NoWrap"
+                               Text="EDIT"
+                               TextColor="White"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.LeftSwipeTemplate>-->
+
+                <syncfusion:SfDataGrid.RightSwipeTemplate>
+                    <DataTemplate>
+                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <Label Text="cosa"></Label>
+                            <Label Text="cosa"></Label>
+                            <Label Text="cosa"></Label>
+                            <Label Text="cosa"></Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfDataGrid.RightSwipeTemplate>
             </syncfusion:SfDataGrid>
 
 

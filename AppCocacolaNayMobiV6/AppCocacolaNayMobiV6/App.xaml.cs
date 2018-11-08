@@ -9,11 +9,11 @@ namespace AppCocacolaNayMobiV6
     public partial class App : Application
     {
         /*PARA COMUNICARNOS CON NUESTRO LOCATOR DENTRO DE LA APP*/
-        private static FicViewModelLocator FicLocalVmLocator;
+        private static FicVimLocator FicLocalVmLocator;
 
-        public static FicViewModelLocator FicVmLocator
+        public static FicVimLocator FicVmLocator
         {
-            get { return FicLocalVmLocator = FicLocalVmLocator ?? new FicViewModelLocator(); }
+            get { return FicLocalVmLocator = FicLocalVmLocator ?? new FicVimLocator(); }
         }
 
         public App()

@@ -65,11 +65,11 @@ namespace AppCocacolaNayMobiV6.Data
         //public DbSet<seg_cat_paginas> seg_cat_paginas { get; set; }
 
         /*SEGURIDAD*/
-        //public DbSet<cat_usuarios> cat_usuarios { get; set; }
-        //public DbSet<seg_expira_claves> seg_expira_claves { get; set; }
-        //public DbSet<seg_usuarios_estatus> seg_usuarios_estatus { get; set; }
-        //public DbSet<cat_tipos_estatus> cat_tipos_estatus { get; set; }
-        //public DbSet<cat_estatus> cat_estatus { get; set; }
+        public DbSet<cat_usuarios> cat_usuarios { get; set; }
+        public DbSet<seg_expira_claves> seg_expira_claves { get; set; }
+        public DbSet<seg_usuarios_estatus> seg_usuarios_estatus { get; set; }
+        public DbSet<cat_tipos_estatus> cat_tipos_estatus { get; set; }
+        public DbSet<cat_estatus> cat_estatus { get; set; }
 
         protected async override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -214,128 +214,128 @@ namespace AppCocacolaNayMobiV6.Data
                 //WithMany().HasForeignKey(s => new { s.IdSubmodulo });
                 //#endregion
 
-               // #region EVA
-               // //CAT_TIPOS_GENERALES
-               // modelBuilder.Entity<cat_tipos_generales>()
-               //     .HasKey(c => new { c.IdTipoGeneral });
+                #region EVA
+                //CAT_TIPOS_GENERALES
+                modelBuilder.Entity<cat_tipos_generales>()
+                    .HasKey(c => new { c.IdTipoGeneral });
 
-               // //CAT_GENERALES
-               // modelBuilder.Entity<cat_generales>()
-               //     .HasKey(c => new { c.IdGeneral });
+                //CAT_GENERALES
+                modelBuilder.Entity<cat_generales>()
+                    .HasKey(c => new { c.IdGeneral });
 
-               // modelBuilder.Entity<cat_generales>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGeneral });
+                modelBuilder.Entity<cat_generales>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGeneral });
 
-               // //CAT_INSTITUTOS
-               // modelBuilder.Entity<cat_institutos>()
-               //     .HasKey(c => new { c.IdInstituto });
+                //CAT_INSTITUTOS
+                modelBuilder.Entity<cat_institutos>()
+                    .HasKey(c => new { c.IdInstituto });
 
-               // modelBuilder.Entity<cat_institutos>()
-               // .HasOne(s => s.cat_institutos_padre).
-               // WithMany().HasForeignKey(s => new { s.IdInstitutoPadre });
+                modelBuilder.Entity<cat_institutos>()
+                .HasOne(s => s.cat_institutos_padre).
+                WithMany().HasForeignKey(s => new { s.IdInstitutoPadre });
 
-               // modelBuilder.Entity<cat_institutos>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGenGiro });
+                modelBuilder.Entity<cat_institutos>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGenGiro });
 
-               // modelBuilder.Entity<cat_institutos>()
-               //.HasOne(s => s.cat_generales).
-               //WithMany().HasForeignKey(s => new { s.IdGenGiro });
+                modelBuilder.Entity<cat_institutos>()
+               .HasOne(s => s.cat_generales).
+               WithMany().HasForeignKey(s => new { s.IdGenGiro });
 
-               // //RH_CAT_PERSONAS
-               // modelBuilder.Entity<rh_cat_personas>()
-               //     .HasKey(c => new { c.IdPersona });
+                //RH_CAT_PERSONAS
+                modelBuilder.Entity<rh_cat_personas>()
+                    .HasKey(c => new { c.IdPersona });
 
-               // modelBuilder.Entity<rh_cat_personas>()
-               // .HasOne(s => s.cat_institutos).
-               // WithMany().HasForeignKey(s => new { s.IdInstituto });
+                modelBuilder.Entity<rh_cat_personas>()
+                .HasOne(s => s.cat_institutos).
+                WithMany().HasForeignKey(s => new { s.IdInstituto });
 
-               // modelBuilder.Entity<rh_cat_personas>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGenOcupacion, s.IdTipoGenEstadoCivil });
+                modelBuilder.Entity<rh_cat_personas>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGenOcupacion, s.IdTipoGenEstadoCivil });
 
-               // modelBuilder.Entity<rh_cat_personas>()
-               // .HasOne(s => s.cat_generales).
-               // WithMany().HasForeignKey(s => new { s.IdGenOcupacion, s.IdGenEstadoCivil });
+                modelBuilder.Entity<rh_cat_personas>()
+                .HasOne(s => s.cat_generales).
+                WithMany().HasForeignKey(s => new { s.IdGenOcupacion, s.IdGenEstadoCivil });
 
-               // //CAT_USUARIOS
-               // modelBuilder.Entity<cat_usuarios>()
-               //     .HasKey(c => new { c.IdUsuario });
+                //CAT_USUARIOS
+                modelBuilder.Entity<cat_usuarios>()
+                    .HasKey(c => new { c.IdUsuario });
 
-               // modelBuilder.Entity<cat_usuarios>()
-               // .HasOne(s => s.rh_cat_personas).
-               // WithMany().HasForeignKey(s => new { s.IdPersona });
+                modelBuilder.Entity<cat_usuarios>()
+                .HasOne(s => s.rh_cat_personas).
+                WithMany().HasForeignKey(s => new { s.IdPersona });
 
-               // //RH_CAT_DIR_WEB
-               // modelBuilder.Entity<rh_cat_dir_web>()
-               //     .HasKey(c => new { c.IdDirWeb });
+                //RH_CAT_DIR_WEB
+                modelBuilder.Entity<rh_cat_dir_web>()
+                    .HasKey(c => new { c.IdDirWeb });
 
-               // modelBuilder.Entity<rh_cat_dir_web>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGenDirWeb });
+                modelBuilder.Entity<rh_cat_dir_web>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGenDirWeb });
 
-               // modelBuilder.Entity<rh_cat_dir_web>()
-               // .HasOne(s => s.cat_generales).
-               // WithMany().HasForeignKey(s => new { s.IdGenDirWeb });
+                modelBuilder.Entity<rh_cat_dir_web>()
+                .HasOne(s => s.cat_generales).
+                WithMany().HasForeignKey(s => new { s.IdGenDirWeb });
 
-               // //RH_CAT_DOMICILIOS
-               // modelBuilder.Entity<rh_cat_domicilios>()
-               //     .HasKey(c => new { c.IdDomicilio});
+                //RH_CAT_DOMICILIOS
+                modelBuilder.Entity<rh_cat_domicilios>()
+                    .HasKey(c => new { c.IdDomicilio });
 
-               // modelBuilder.Entity<rh_cat_domicilios>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGenDom});
+                modelBuilder.Entity<rh_cat_domicilios>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGenDom });
 
-               // modelBuilder.Entity<rh_cat_domicilios>()
-               // .HasOne(s => s.cat_generales).
-               // WithMany().HasForeignKey(s => new { s.IdGenDom });
+                modelBuilder.Entity<rh_cat_domicilios>()
+                .HasOne(s => s.cat_generales).
+                WithMany().HasForeignKey(s => new { s.IdGenDom });
 
-               // //RH_CAT_TELEFONOS
-               // modelBuilder.Entity<rh_cat_telefonos>()
-               //     .HasKey(c => new { c.IdTelefono });
+                //RH_CAT_TELEFONOS
+                modelBuilder.Entity<rh_cat_telefonos>()
+                    .HasKey(c => new { c.IdTelefono });
 
-               // modelBuilder.Entity<rh_cat_telefonos>()
-               // .HasOne(s => s.cat_tipos_generales).
-               // WithMany().HasForeignKey(s => new { s.IdTipoGenTelefono });
+                modelBuilder.Entity<rh_cat_telefonos>()
+                .HasOne(s => s.cat_tipos_generales).
+                WithMany().HasForeignKey(s => new { s.IdTipoGenTelefono });
 
-               // modelBuilder.Entity<rh_cat_telefonos>()
-               // .HasOne(s => s.cat_generales).
-               // WithMany().HasForeignKey(s => new { s.IdGenTelefono });
+                modelBuilder.Entity<rh_cat_telefonos>()
+                .HasOne(s => s.cat_generales).
+                WithMany().HasForeignKey(s => new { s.IdGenTelefono });
 
-               // //CAT_TIPOS_ESTATUS
-               // modelBuilder.Entity<cat_tipos_estatus>()
-               //     .HasKey(c => new { c.IdTipoEstatus });
+                //CAT_TIPOS_ESTATUS
+                modelBuilder.Entity<cat_tipos_estatus>()
+                    .HasKey(c => new { c.IdTipoEstatus });
 
-               // //CAT_ESTATUS
-               // modelBuilder.Entity<cat_estatus>()
-               //     .HasKey(c => new { c.IdEstatus });
+                //CAT_ESTATUS
+                modelBuilder.Entity<cat_estatus>()
+                    .HasKey(c => new { c.IdEstatus });
 
-               // modelBuilder.Entity<cat_estatus>()
-               // .HasOne(s => s.cat_tipos_estatus).
-               // WithMany().HasForeignKey(s => new { s.IdTipoEstatus });
+                modelBuilder.Entity<cat_estatus>()
+                .HasOne(s => s.cat_tipos_estatus).
+                WithMany().HasForeignKey(s => new { s.IdTipoEstatus });
 
-               // //SEG_USUARIOS_ESTATUS
-               // modelBuilder.Entity<seg_usuarios_estatus>()
-               //     .HasKey(c => new { c.IdCrtlEstatus });
+                //SEG_USUARIOS_ESTATUS
+                modelBuilder.Entity<seg_usuarios_estatus>()
+                    .HasKey(c => new { c.IdCrtlEstatus });
 
-               // modelBuilder.Entity<seg_usuarios_estatus>()
-               // .HasOne(s => s.cat_tipos_estatus).
-               // WithMany().HasForeignKey(s => new { s.IdTipoEstatus });
+                modelBuilder.Entity<seg_usuarios_estatus>()
+                .HasOne(s => s.cat_tipos_estatus).
+                WithMany().HasForeignKey(s => new { s.IdTipoEstatus });
 
-               // modelBuilder.Entity<seg_usuarios_estatus>()
-               // .HasOne(s => s.cat_estatus).
-               // WithMany().HasForeignKey(s => new { s.IdEstatus });
+                modelBuilder.Entity<seg_usuarios_estatus>()
+                .HasOne(s => s.cat_estatus).
+                WithMany().HasForeignKey(s => new { s.IdEstatus });
 
-               // //SEG_EXPIRA_CLAVES
-               // modelBuilder.Entity<seg_expira_claves>()
-               //     .HasKey(c => new { c.IdClave, c.IdUsuario });
+                //SEG_EXPIRA_CLAVES
+                modelBuilder.Entity<seg_expira_claves>()
+                    .HasKey(c => new { c.IdClave, c.IdUsuario });
 
-               // modelBuilder.Entity<seg_expira_claves>()
-               // .HasOne(s => s.cat_usuarios).
-               // WithMany().HasForeignKey(s => new { s.IdUsuario });
+                modelBuilder.Entity<seg_expira_claves>()
+                .HasOne(s => s.cat_usuarios).
+                WithMany().HasForeignKey(s => new { s.IdUsuario });
 
-               // #endregion
+                #endregion
 
 
             }

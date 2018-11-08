@@ -11,11 +11,11 @@ using System.Text;
 
 namespace AppCocacolaNayMobiV6.ViewModels.Base
 {
-    public class FicViewModelLocator
+    public class FicVimLocator
     {
         private static IContainer FicIContainer;
 
-        public FicViewModelLocator()
+        public FicVimLocator()
         {
             //FIC: ContainerBuilder es una clase de la libreria de Autofac para poder ejecutar la interfaz en las diferentes plataformas 
             var FicContainerBuilder = new ContainerBuilder();
